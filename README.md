@@ -1,2 +1,2 @@
-**E Pola - Digital Agricultural Market**
+**Koratuwa - Digital Agricultural Market**
 
