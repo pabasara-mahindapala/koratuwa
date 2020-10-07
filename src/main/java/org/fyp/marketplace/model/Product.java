@@ -5,6 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.Date;
+
 @Document(collection = "product")
 public class Product {
     @Id
@@ -12,6 +14,8 @@ public class Product {
     private ObjectId _id;
 
     private String productName;
+    private Date insertDate;
+    private Date lastUpdateDate;
     private double unitPrice;
     private double amount;
     private String availablePeriod;
@@ -21,9 +25,11 @@ public class Product {
     private ObjectId categoryId;
     private ObjectId subCategoryId;
 
-    public Product(ObjectId _id, String productName, double unitPrice, double amount, String availablePeriod, String cultivationMethod, String location, ObjectId producerId, ObjectId categoryId, ObjectId subCategoryId) {
+    public Product(ObjectId _id, String productName, Date insertDate, Date lastUpdateDate, double unitPrice, double amount, String availablePeriod, String cultivationMethod, String location, ObjectId producerId, ObjectId categoryId, ObjectId subCategoryId) {
         this._id = _id;
         this.productName = productName;
+        this.insertDate = insertDate;
+        this.lastUpdateDate = lastUpdateDate;
         this.unitPrice = unitPrice;
         this.amount = amount;
         this.availablePeriod = availablePeriod;
@@ -32,6 +38,22 @@ public class Product {
         this.producerId = producerId;
         this.categoryId = categoryId;
         this.subCategoryId = subCategoryId;
+    }
+
+    public Date getInsertDate() {
+        return insertDate;
+    }
+
+    public void setInsertDate(Date insertDate) {
+        this.insertDate = insertDate;
+    }
+
+    public Date getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(Date lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
 
     public ObjectId get_id() {
@@ -113,4 +135,5 @@ public class Product {
     public void setSubCategoryId(ObjectId subCategoryId) {
         this.subCategoryId = subCategoryId;
     }
+
 }

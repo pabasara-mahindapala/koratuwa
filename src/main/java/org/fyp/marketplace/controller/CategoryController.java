@@ -1,5 +1,6 @@
 package org.fyp.marketplace.controller;
 
+import org.bson.types.ObjectId;
 import org.fyp.marketplace.model.Category;
 import org.fyp.marketplace.service.CategoryService;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,20 @@ public class CategoryController {
         }
     }
 
+    @GetMapping("/{categoryId}")
+    public Category getCategory(@PathVariable ObjectId categoryId) {
+
+        Category category = categoryService.getCategoryById(categoryId);
+
+        // throw exception if null
+
+        if (category == null) {
+            throw new RuntimeException("Account not found");
+        }
+
+        return category;
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Category> createCategory(@RequestBody Category category) throws Exception {
         ResponseEntity<Category> result;
@@ -39,5 +54,33 @@ public class CategoryController {
             result = new ResponseEntity<>(category, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return result;
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Category> updateCategory(@RequestBody Category category) throws Exception {
+        ResponseEntity<Category> result;
+        try {
+            this.categoryService.updateCategory(category);
+            result = new ResponseEntity<>(category, HttpStatus.OK);
+        } catch (Exception e) {
+            result = new ResponseEntity<>(category, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return result;
+    }
+
+    @DeleteMapping("/delete/{categoryId}")
+    public String deleteCategory(@PathVariable ObjectId categoryId) {
+
+        Category category = categoryService.getCategoryById(categoryId);
+
+        // throw exception if null
+
+        if (category == null) {
+            throw new RuntimeException("Category not found");
+        }
+
+        categoryService.deleteCategory(category);
+
+        return "Deleted Category : " + category.getCategoryName();
     }
 }

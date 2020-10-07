@@ -7,6 +7,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface SubCategoryRepository extends MongoRepository<SubCategory,Integer> {
-    List<SubCategory> findBy_id(ObjectId _id);
-    List<SubCategory> findByCategoryId(ObjectId categoryId);
+    SubCategory findBy_id(ObjectId _id);
+    SubCategory findByCategoryId(ObjectId categoryId);
 }
