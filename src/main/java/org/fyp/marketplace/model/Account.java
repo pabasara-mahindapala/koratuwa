@@ -23,7 +23,7 @@ public class Account {
 	private Date insertDate;
 	private Date lastUpdateDate;
 	private Boolean isActive;
-	private String name;
+	private String username;
 	private String userType;
 	private String address;
 	private String company;
@@ -35,7 +35,7 @@ public class Account {
 	 * @param _id
 	 * @param insertDate
 	 * @param isActive
-	 * @param name
+	 * @param username
 	 * @param emailId
 	 * @param user_type
 	 * @param address
@@ -45,13 +45,13 @@ public class Account {
 	 * @param mobileNumber
 	 */
 
-	public Account(ObjectId _id, Date insertDate, Boolean isActive, String name, String userType, String address,
+	public Account(ObjectId _id, Date insertDate, Boolean isActive, String username, String userType, String address,
 			String company, String password, String emailId, String mobileNumber) {
 		super();
 		this._id = _id;
 		this.insertDate = insertDate;
 		this.isActive = isActive;
-		this.name = name;
+		this.username = username;
 		this.userType = userType;
 		this.address = address;
 		this.company = company;
@@ -84,12 +84,12 @@ public class Account {
 		this.isActive = isActive;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmailId() {
