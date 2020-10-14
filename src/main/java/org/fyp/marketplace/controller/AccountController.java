@@ -8,6 +8,7 @@ import org.fyp.marketplace.model.Account;
 import org.fyp.marketplace.service.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,7 @@ public class AccountController {
 	 * @return
 	 */
 	@GetMapping("all")
+	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN')")
 	public List<Account> listAllAccounts() {
 		try {
 			return this.accountService.getAllAccount();
@@ -47,6 +49,7 @@ public class AccountController {
 	}
 
 	@GetMapping("/{accountId}")
+	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN')")
 	public Account getAccount(@PathVariable ObjectId accountId) {
 
 		Account account = accountService.getAccountById(accountId);
@@ -61,6 +64,7 @@ public class AccountController {
 	}
 
 	@PostMapping("/add")
+	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN')")
 	public ResponseEntity<Account> createAccount(@RequestBody Account account) throws Exception {
 		ResponseEntity<Account> result;
 		try {
@@ -74,6 +78,7 @@ public class AccountController {
 	}
 
 	@PutMapping("/update")
+	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN')")
 	public ResponseEntity<Account> updateAccount(@RequestBody Account account) throws Exception {
 		ResponseEntity<Account> result;
 		try {
@@ -86,6 +91,7 @@ public class AccountController {
 	}
 
 	@DeleteMapping("/delete/{accountId}")
+	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN')")
 	public String deleteAccount(@PathVariable ObjectId accountId) {
 
 		Account account = accountService.getAccountById(accountId);
@@ -98,7 +104,7 @@ public class AccountController {
 
 		accountService.deleteAccount(account);
 
-		return "Deleted Account : " + account.getName();
+		return "Deleted Account : " + account.getUsername();
 	}
 
 }
