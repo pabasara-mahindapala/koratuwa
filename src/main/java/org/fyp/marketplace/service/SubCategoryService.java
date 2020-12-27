@@ -27,6 +27,8 @@ public class SubCategoryService {
     }
 
     public SubCategory addSubCategory(SubCategory subCategory) {
+    	subCategory.setInsertDate(new Date());
+    	subCategory.setLastUpdateDate(new Date());
         SubCategory newSubCategory = this.subCategoryRepository.save(subCategory);
         return newSubCategory;
     }

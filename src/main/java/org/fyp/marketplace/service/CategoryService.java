@@ -23,6 +23,8 @@ public class CategoryService {
     }
 
     public Category addCategory(Category category) {
+    	category.setInsertDate(new Date());
+        category.setLastUpdateDate(new Date());
         Category newCategory = this.categoryRepository.save(category);
         return newCategory;
     }
