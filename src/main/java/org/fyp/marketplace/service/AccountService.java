@@ -12,11 +12,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountService {
+	
 	@Autowired
 	AccountRepository accountRepository;
-
-//	@Autowired
-//	private BCryptPasswordEncoder passwordEncoder;
 
 	public List<Account> getAllAccount() {
 		return this.accountRepository.findAll();
@@ -28,7 +26,6 @@ public class AccountService {
 
 	public Account createAccount(Account account) throws Exception {
 		account.set_id(new ObjectId());
-//		account.setPassword(passwordEncoder.encode(account.getPassword()));
 		account.setIsActive(true);
 		account.setInsertDate(new Date());
 		account.setLastUpdateDate(null);

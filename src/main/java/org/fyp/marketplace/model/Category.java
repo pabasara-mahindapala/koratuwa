@@ -15,14 +15,12 @@ public class Category {
 
 	private Date insertDate;
 	private Date lastUpdateDate;
-	private ObjectId subCategoryId;
 	private String categoryName;
 
-	public Category(ObjectId _id, Date insertDate, Date lastUpdateDate, ObjectId subCategoryId, String categoryName) {
+	public Category(ObjectId _id, Date insertDate, Date lastUpdateDate, String categoryName) {
 		this._id = _id;
 		this.insertDate = insertDate;
 		this.lastUpdateDate = lastUpdateDate;
-		this.subCategoryId = subCategoryId;
 		this.categoryName = categoryName;
 	}
 
@@ -48,14 +46,6 @@ public class Category {
 
 	public void set_id(ObjectId _id) {
 		this._id = _id;
-	}
-
-	public ObjectId getSubCategoryId() {
-		return subCategoryId;
-	}
-
-	public void setSubCategoryId(ObjectId subCategoryId) {
-		this.subCategoryId = subCategoryId;
 	}
 
 	public String getCategoryName() {
