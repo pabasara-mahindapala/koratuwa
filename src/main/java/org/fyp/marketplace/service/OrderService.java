@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderService {
 	final OrderRepository orderRepository;
-	final AccountService accountService;
 	final StockService stockService;
 	private String[] paymentType;
 
@@ -21,10 +20,9 @@ public class OrderService {
 	 * @param stockService
 	 * @param accountService
 	 */
-	public OrderService(OrderRepository orderRepository, StockService stockService, AccountService accountService) {
+	public OrderService(OrderRepository orderRepository, StockService stockService) {
 		this.orderRepository = orderRepository;
 		this.stockService = stockService;
-		this.accountService = accountService;
 		this.setPaymentType(new String[] { "cash", "online", "card", "coupon", "other" });
 	}
 

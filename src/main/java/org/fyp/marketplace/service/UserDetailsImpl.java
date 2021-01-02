@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.bson.types.ObjectId;
 import org.fyp.marketplace.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
-	private String id;
+	private ObjectId id;
 
 	private String username;
 
@@ -27,9 +28,9 @@ public class UserDetailsImpl implements UserDetails {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(String id, String username, String email, String password,
+	public UserDetailsImpl(ObjectId objectId, String username, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
-		this.id = id;
+		this.id = objectId;
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -42,7 +43,7 @@ public class UserDetailsImpl implements UserDetails {
 				.collect(Collectors.toList());
 
 		return new UserDetailsImpl(
-				user.getId(), 
+				user.get_id(), 
 				user.getUsername(), 
 				user.getEmail(),
 				user.getPassword(), 
@@ -54,7 +55,9 @@ public class UserDetailsImpl implements UserDetails {
 		return authorities;
 	}
 
-	public String getId() {
+	
+
+	public ObjectId getId() {
 		return id;
 	}
 

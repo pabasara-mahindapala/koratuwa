@@ -11,13 +11,11 @@ import java.util.List;
 @Service
 public class ProductService {
     final ProductRepository productRepository;
-    final AccountService accountService;
     final CategoryService categoryService;
     final SubCategoryService subCategoryService;
 
-    public ProductService(ProductRepository productRepository, AccountService accountService, CategoryService categoryService, SubCategoryService subCategoryService) {
+    public ProductService(ProductRepository productRepository, CategoryService categoryService, SubCategoryService subCategoryService) {
         this.productRepository = productRepository;
-        this.accountService = accountService;
         this.categoryService = categoryService;
         this.subCategoryService = subCategoryService;
     }
