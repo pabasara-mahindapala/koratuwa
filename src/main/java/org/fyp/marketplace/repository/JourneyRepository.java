@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface JourneyRepository extends MongoRepository<Journey, Integer> {
 
-    List<Journey> findByJourneyId(ObjectId journeyId);
+//    List<Journey> findByJourneyId(ObjectId journeyId);
     Journey findBy_id(ObjectId _id);
 }
