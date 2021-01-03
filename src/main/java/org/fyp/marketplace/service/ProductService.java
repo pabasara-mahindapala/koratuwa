@@ -37,6 +37,8 @@ public class ProductService {
     }
 
     public Product addProduct(Product product) {
+    	product.setInsertDate(new Date());
+    	product.setLastUpdateDate(new Date());
         Product newProduct = this.productRepository.save(product);
         return newProduct;
     }
