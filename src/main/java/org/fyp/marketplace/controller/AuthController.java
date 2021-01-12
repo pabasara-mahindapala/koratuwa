@@ -10,10 +10,11 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
-import org.fyp.marketplace.model.Category;
 import org.fyp.marketplace.model.ERole;
+import org.fyp.marketplace.model.Review;
 import org.fyp.marketplace.model.Role;
 import org.fyp.marketplace.model.User;
+import org.fyp.marketplace.repository.ReviewRepository;
 import org.fyp.marketplace.repository.RoleRepository;
 import org.fyp.marketplace.repository.UserRepository;
 import org.fyp.marketplace.security.jwt.JwtUtils;
@@ -27,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -51,6 +53,9 @@ public class AuthController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	ReviewRepository reviewRepository;
 
 	@Autowired
 	RoleRepository roleRepository;
@@ -242,4 +247,38 @@ public class AuthController {
 
         return "Deleted user : " + user.getUsername();
 	}
+	
+
+	
+	@PostMapping("/review/{userId}")
+	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN')")
+    public ResponseEntity<Review> reviewUser(@PathVariable ObjectId userId, @RequestBody Review review) throws Exception {
+        ResponseEntity<Review> result;
+        try {
+        	String currentUserName;
+        	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+    		    currentUserName = authentication.getName();
+    		    Optional<User> reviewer = userRepository.findByUsername(currentUserName);
+    		    review.setReviewerId(reviewer.get().get_id());
+    		    review.setInsertDate(new Date());
+    		    Review addedReview = reviewRepository.save(review);
+    		    User reviewedUser = userRepository.findBy_id(userId);
+    		    Set<Review> reviews = reviewedUser.getReviews();
+    		    if (reviews == null) {
+					reviews = new HashSet<>();
+				}
+    		    reviews.add(addedReview);
+    		    reviewedUser.setReviews(reviews);
+    		    userRepository.save(reviewedUser);
+    		    result = new ResponseEntity<>(review, HttpStatus.OK);
+    		} else {
+    			result = new ResponseEntity<>(review, HttpStatus.INTERNAL_SERVER_ERROR);
+    		}
+    		
+        } catch (Exception e) {
+            result = new ResponseEntity<>(review, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return result;
+    }
 }

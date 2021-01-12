@@ -42,6 +42,9 @@ public class User {
 
 	@DBRef
 	private Set<Role> roles = new HashSet<>();
+	
+	@DBRef
+	private Set<Review> reviews = new HashSet<>();
 
 	public User(String username, @NotBlank @Size(max = 50) @Email String email,
 			@NotBlank @Size(max = 120) String password, String firstName, String lastName, Date insertDate,
@@ -102,6 +105,14 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+	
+	public Set<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(Set<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 	public String getFirstName() {
