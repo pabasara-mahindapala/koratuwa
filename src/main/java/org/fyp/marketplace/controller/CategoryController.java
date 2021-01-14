@@ -5,6 +5,7 @@ import org.fyp.marketplace.model.Category;
 import org.fyp.marketplace.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Category> createCategory(@RequestBody Category category) throws Exception {
         ResponseEntity<Category> result;
         try {
@@ -57,6 +59,7 @@ public class CategoryController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Category> updateCategory(@RequestBody Category category) throws Exception {
         ResponseEntity<Category> result;
         try {
@@ -69,6 +72,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/delete/{categoryId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteCategory(@PathVariable ObjectId categoryId) {
 
         Category category = categoryService.getCategoryById(categoryId);

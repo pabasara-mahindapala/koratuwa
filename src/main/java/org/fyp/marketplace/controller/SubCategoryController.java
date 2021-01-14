@@ -5,6 +5,7 @@ import org.fyp.marketplace.model.SubCategory;
 import org.fyp.marketplace.service.SubCategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -61,6 +62,7 @@ public class SubCategoryController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SubCategory> createSubCategory(@RequestBody SubCategory subCategory) throws Exception {
         ResponseEntity<SubCategory> result;
         try {
@@ -73,6 +75,7 @@ public class SubCategoryController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SubCategory> updateSubCategory(@RequestBody SubCategory subCategory) throws Exception {
         ResponseEntity<SubCategory> result;
         try {
@@ -85,6 +88,7 @@ public class SubCategoryController {
     }
 
     @DeleteMapping("/delete/{subCategoryId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteSubCategory(@PathVariable ObjectId subCategoryId) {
 
         SubCategory subCategory = subCategoryService.getSubCategoryById(subCategoryId);

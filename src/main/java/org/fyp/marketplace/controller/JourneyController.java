@@ -5,6 +5,7 @@ import org.fyp.marketplace.model.Journey;
 import org.fyp.marketplace.service.JourneyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class JourneyController {
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN') or hasRole('TRANSPORTER')")
     public List<Journey> listAllJourney() {
         try {
             return this.journeyService.getAllJourneys();
@@ -31,6 +33,7 @@ public class JourneyController {
     }
 
     @GetMapping("/{journeyId}")
+    @PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN') or hasRole('TRANSPORTER')")
     public Journey getJourney(@PathVariable ObjectId journeyId) {
 
         Journey journey = journeyService.journeySearchById(journeyId);
@@ -45,6 +48,7 @@ public class JourneyController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('TRANSPORTER') or hasRole('ADMIN')")
     public ResponseEntity<Journey> createJourney(@RequestBody Journey journey) throws Exception {
         ResponseEntity<Journey> result;
         try {
@@ -57,6 +61,7 @@ public class JourneyController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasRole('TRANSPORTER') or hasRole('ADMIN')")
     public ResponseEntity<Journey> updateJourney(@RequestBody Journey journey) throws Exception {
         ResponseEntity<Journey> result;
         try {
@@ -69,6 +74,7 @@ public class JourneyController {
     }
 
     @DeleteMapping("/delete/{journeyId}")
+    @PreAuthorize("hasRole('TRANSPORTER') or hasRole('ADMIN')")
     public String deleteJourney(@PathVariable ObjectId journeyId) {
 
         Journey journey = journeyService.journeySearchById(journeyId);

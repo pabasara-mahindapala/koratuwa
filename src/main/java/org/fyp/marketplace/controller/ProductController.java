@@ -5,6 +5,7 @@ import org.fyp.marketplace.model.Product;
 import org.fyp.marketplace.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -88,6 +89,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('SELLER') or hasRole('ADMIN')")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) throws Exception {
         ResponseEntity<Product> result;
         try {
@@ -100,6 +102,7 @@ public class ProductController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasRole('SELLER') or hasRole('ADMIN')")
     public ResponseEntity<Product> updateProduct(@RequestBody Product product) throws Exception {
         ResponseEntity<Product> result;
         try {
@@ -112,6 +115,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{productId}")
+    @PreAuthorize("hasRole('SELLER') or hasRole('ADMIN')")
     public String deleteProduct(@PathVariable ObjectId productId) {
 
         Product product = productService.productsSearchById(productId);

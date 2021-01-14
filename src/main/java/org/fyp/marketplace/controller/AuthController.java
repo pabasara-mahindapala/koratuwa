@@ -103,6 +103,9 @@ public class AuthController {
 			Role sellerRole = roleRepository.findByName(ERole.ROLE_SELLER)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(sellerRole);
+			Role transporterRole = roleRepository.findByName(ERole.ROLE_TRANSPORTER)
+					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+			roles.add(transporterRole);
 		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
@@ -124,6 +127,12 @@ public class AuthController {
 					roles.add(sellerRole);
 
 					break;
+				case "transporter":
+					Role transporterRole = roleRepository.findByName(ERole.ROLE_TRANSPORTER)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(transporterRole);
+
+					break;
 				default:
 					Role buyerRoleNew = roleRepository.findByName(ERole.ROLE_BUYER)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -131,6 +140,9 @@ public class AuthController {
 					Role sellerRoleNew = roleRepository.findByName(ERole.ROLE_SELLER)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(sellerRoleNew);
+					Role transporterRoleNew = roleRepository.findByName(ERole.ROLE_TRANSPORTER)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(transporterRoleNew);
 				}
 			});
 		}
@@ -142,7 +154,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/logout")
-	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN') or hasRole('TRANSPORTER')")
 	public ResponseEntity<?> logoutUser() {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
 		securityContext.setAuthentication(null);
