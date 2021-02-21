@@ -240,18 +240,17 @@ public class AuthController {
 		}
 	}
 
-	
 	@DeleteMapping("/delete/{userId}")
-	public String deleteUser(@PathVariable ObjectId userId) {
-		User user = userRepository.findBy_id(userId);
+	public String deleteUser(@PathVariable long userId) {
+		Optional<User> user = userRepository.findById(userId);
 
-        // throw exception if null
-        if (user == null) {
-            throw new RuntimeException("User not found");
-        }
+		// throw exception if null
+		if (!user.isPresent()) {
+			throw new RuntimeException("User not found");
+		}
 
-        userRepository.delete(user);
+		userRepository.delete(user.get());
 
-        return "Deleted user : " + user.getUsername();
+		return "Deleted user : " + user.get().getUsername();
 	}
 }
