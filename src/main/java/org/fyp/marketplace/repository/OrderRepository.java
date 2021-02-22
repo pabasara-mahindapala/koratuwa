@@ -13,8 +13,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @author OmPrakashP
  *
  */
-public interface OrderRepository extends MongoRepository<Order, Integer> {
+public interface OrderRepository extends MongoRepository<Order, Long> {
 
-	List<Order> findByStockId(ObjectId stockId);
+	List<Order> findByStockId(long stockId);
 
 }

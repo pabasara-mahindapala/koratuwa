@@ -33,7 +33,7 @@ public class CartItemController {
     }
 
     @GetMapping("/{customerId}")
-    public CartItem getCartItemByCustomerId(@PathVariable ObjectId customerId) {
+    public CartItem getCartItemByCustomerId(@PathVariable long customerId) {
 
         CartItem cartItem = cartItemService.cartItemSearchByCustomerId(customerId);
 
@@ -76,7 +76,7 @@ public class CartItemController {
 
     @DeleteMapping("/delete/{cartItemId}")
     @PreAuthorize("hasRole('BUYER') or hasRole('ADMIN')")
-    public String deleteCartItem(@PathVariable ObjectId cartItemId) {
+    public String deleteCartItem(@PathVariable long cartItemId) {
 
         CartItem cartItem = cartItemService.cartItemSearchByCustomerId(cartItemId);
 

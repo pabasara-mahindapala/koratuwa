@@ -36,12 +36,4 @@ public class StockController {
 			return new ArrayList<Stock>();
 		}
 	}
-	
-
-	/**
-	 * Few other methods which we can implement 
-	 * 1. updateStockDetails
-	 * 2. removeStock
-	 * 3. validationStock
-	 */
 }

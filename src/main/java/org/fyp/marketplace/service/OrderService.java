@@ -35,30 +35,10 @@ public class OrderService {
 		return orderRepository.findAll();
 	}
 
-	/**
-	 * List order by users emailId
-	 * 
-	 * @param emailId
-	 * @return
-	 */
-	public List<Order> orderSearchByStockId(ObjectId stockId) {
+	public List<Order> orderSearchByStockId(long stockId) {
 		return orderRepository.findByStockId(stockId);
 	}
 
-	/**
-	 * List order by product name
-	 * 
-	 * @param productName
-	 * @return
-	 */
-
-	/**
-	 * @apiNote Create new order
-	 * 
-	 * @param order
-	 * @return
-	 * @throws Exception
-	 */
 	public Order createOrder(Order order) throws Exception {
 		order.setIsActive(true);
 		order.setInsertDate(new Date());
@@ -71,11 +51,6 @@ public class OrderService {
 		}
 	}
 
-	/**
-	 * @apiNote This method can be used for validation of Order
-	 * @param order
-	 * @return
-	 */
 	public Boolean validateOrder(Order order) {
 		Boolean isValid = true;
 

@@ -58,8 +58,4 @@ public class OrderController {
 		return result;
 	}
 
-	/**
-	 * Few other methods which we can implement 1. updateOrderDetails 2. removeOrder
-	 */
-
 }

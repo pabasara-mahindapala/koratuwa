@@ -1,35 +1,38 @@
 package org.fyp.marketplace.model;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
 import java.util.Date;
 
 @Document(collection = "category")
 public class Category {
-	@Id
-	@Field(value = "_id")
-	private ObjectId _id;
+	@Transient
+    public static final String SEQUENCE_NAME = "categories_sequence";
+
+    @Id
+    private long id;
 
 	private Date insertDate;
 	private Date lastUpdateDate;
 	private String categoryName;
 
-	public Category(ObjectId _id, Date insertDate, Date lastUpdateDate, String categoryName) {
-		this._id = _id;
+	public Category(Date insertDate, Date lastUpdateDate, String categoryName) {
 		this.insertDate = insertDate;
 		this.lastUpdateDate = lastUpdateDate;
 		this.categoryName = categoryName;
 	}
 
-	public ObjectId get_id() {
-		return _id;
-	}
-
 	public Date getInsertDate() {
 		return insertDate;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void setInsertDate(Date insertDate) {
@@ -42,10 +45,6 @@ public class Category {
 
 	public void setLastUpdateDate(Date lastUpdateDate) {
 		this.lastUpdateDate = lastUpdateDate;
-	}
-
-	public void set_id(ObjectId _id) {
-		this._id = _id;
 	}
 
 	public String getCategoryName() {

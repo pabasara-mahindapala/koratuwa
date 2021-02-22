@@ -34,7 +34,7 @@ public class VehicleController {
 
     @GetMapping("/{vehicleId}")
     @PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN') or hasRole('TRANSPORTER')")
-    public Vehicle getVehicle(@PathVariable ObjectId vehicleId) {
+    public Vehicle getVehicle(@PathVariable long vehicleId) {
 
         Vehicle vehicle = vehicleService.vehiclesSearchById(vehicleId);
 
@@ -75,7 +75,7 @@ public class VehicleController {
 
     @DeleteMapping("/delete/{vehicleId}")
     @PreAuthorize("hasRole('TRANSPORTER') or hasRole('ADMIN')")
-    public String deleteVehicle(@PathVariable ObjectId vehicleId) {
+    public String deleteVehicle(@PathVariable long vehicleId) {
 
         Vehicle vehicle = vehicleService.vehiclesSearchById(vehicleId);
 

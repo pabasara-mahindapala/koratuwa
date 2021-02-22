@@ -2,6 +2,7 @@ package org.fyp.marketplace.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -10,29 +11,22 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 public class CartItem {
 
+	@Transient
+    public static final String SEQUENCE_NAME = "cartitems_sequence";
+
     @Id
-    @Field(value = "_id")
-    private ObjectId _id;
+    private long id;
 
-    private Boolean isActive;
-    private ObjectId customerId;
+	private Boolean isActive;
+    private long customerId;
     private Integer quanity;
-    private ObjectId productId;
+    private long productId;
 
-    public CartItem(ObjectId _id, Boolean isActive, ObjectId customerId, Integer quanity, ObjectId productId) {
-        this._id = _id;
+    public CartItem(Boolean isActive, long customerId, Integer quanity, long productId) {
         this.isActive = isActive;
         this.customerId = customerId;
         this.quanity = quanity;
         this.productId = productId;
-    }
-
-    public ObjectId get_id() {
-        return _id;
-    }
-
-    public void set_id(ObjectId _id) {
-        this._id = _id;
     }
 
     public Boolean getActive() {
@@ -43,14 +37,6 @@ public class CartItem {
         isActive = active;
     }
 
-    public ObjectId getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(ObjectId customerId) {
-        this.customerId = customerId;
-    }
-
     public Integer getQuanity() {
         return quanity;
     }
@@ -59,11 +45,29 @@ public class CartItem {
         this.quanity = quanity;
     }
 
-    public ObjectId getProductId() {
-        return productId;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setProductId(ObjectId productId) {
-        this.productId = productId;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
+
+	public long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(long productId) {
+		this.productId = productId;
+	}
+    
+    
 }

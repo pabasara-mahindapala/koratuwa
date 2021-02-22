@@ -22,7 +22,7 @@ public class CartItemService {
         return cartItemRepository.findAll();
     }
 
-    public CartItem cartItemSearchByCustomerId(ObjectId customerId) {
+    public CartItem cartItemSearchByCustomerId(long customerId) {
         return cartItemRepository.findByCustomerId(customerId);
     }
 

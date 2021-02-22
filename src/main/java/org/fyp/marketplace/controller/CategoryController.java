@@ -32,7 +32,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{categoryId}")
-    public Category getCategory(@PathVariable ObjectId categoryId) {
+    public Category getCategory(@PathVariable long categoryId) {
 
         Category category = categoryService.getCategoryById(categoryId);
 
@@ -73,7 +73,7 @@ public class CategoryController {
 
     @DeleteMapping("/delete/{categoryId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public String deleteCategory(@PathVariable ObjectId categoryId) {
+    public String deleteCategory(@PathVariable long categoryId) {
 
         Category category = categoryService.getCategoryById(categoryId);
 

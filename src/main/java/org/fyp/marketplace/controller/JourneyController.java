@@ -34,7 +34,7 @@ public class JourneyController {
 
     @GetMapping("/{journeyId}")
     @PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN') or hasRole('TRANSPORTER')")
-    public Journey getJourney(@PathVariable ObjectId journeyId) {
+    public Journey getJourney(@PathVariable long journeyId) {
 
         Journey journey = journeyService.journeySearchById(journeyId);
 
@@ -75,7 +75,7 @@ public class JourneyController {
 
     @DeleteMapping("/delete/{journeyId}")
     @PreAuthorize("hasRole('TRANSPORTER') or hasRole('ADMIN')")
-    public String deleteJourney(@PathVariable ObjectId journeyId) {
+    public String deleteJourney(@PathVariable long journeyId) {
 
         Journey journey = journeyService.journeySearchById(journeyId);
 

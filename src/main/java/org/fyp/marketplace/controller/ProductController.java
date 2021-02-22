@@ -33,7 +33,7 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public Product getProduct(@PathVariable ObjectId productId) {
+    public Product getProduct(@PathVariable long productId) {
 
         Product product = productService.productsSearchById(productId);
 
@@ -47,45 +47,45 @@ public class ProductController {
     }
 
     @GetMapping("/{producerId}")
-    public Product getProductByProducerId(@PathVariable ObjectId producerId) {
+    public List<Product> getProductByProducerId(@PathVariable long producerId) {
 
-        Product product = productService.productSearchByProducerId(producerId);
+    	List<Product> products = productService.productSearchByProducerId(producerId);
 
         // throw exception if null
 
-        if (product == null) {
+        if (products == null) {
             throw new RuntimeException("Product not found");
         }
 
-        return product;
+        return products;
     }
 
     @GetMapping("/{categoryId}")
-    public Product getProductByCategoryId(@PathVariable ObjectId categoryId) {
+    public List<Product> getProductByCategoryId(@PathVariable long categoryId) {
 
-        Product product = productService.productSearchByCategoryId(categoryId);
+    	List<Product> products = productService.productSearchByCategoryId(categoryId);
 
         // throw exception if null
 
-        if (product == null) {
+        if (products == null) {
             throw new RuntimeException("Product not found");
         }
 
-        return product;
+        return products;
     }
 
     @GetMapping("/{subCategoryId}")
-    public Product getProductBySubCategoryId(@PathVariable ObjectId subCategoryId) {
+    public List<Product> getProductBySubCategoryId(@PathVariable long subCategoryId) {
 
-        Product product = productService.productSearchBySubCategoryId(subCategoryId);
+    	List<Product> products = productService.productSearchBySubCategoryId(subCategoryId);
 
         // throw exception if null
 
-        if (product == null) {
+        if (products == null) {
             throw new RuntimeException("Product not found");
         }
 
-        return product;
+        return products;
     }
 
     @PostMapping("/add")
@@ -116,7 +116,7 @@ public class ProductController {
 
     @DeleteMapping("/delete/{productId}")
     @PreAuthorize("hasRole('SELLER') or hasRole('ADMIN')")
-    public String deleteProduct(@PathVariable ObjectId productId) {
+    public String deleteProduct(@PathVariable long productId) {
 
         Product product = productService.productsSearchById(productId);
 
