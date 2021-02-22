@@ -22,7 +22,7 @@ public class SubCategoryService {
         return this.subCategoryRepository.findById(_id).get();
     }
 
-    public SubCategory getSubCategoryByCategoryId(long categoryId){
+    public List<SubCategory> getSubCategoryByCategoryId(long categoryId){
         return subCategoryRepository.findByCategoryId(categoryId);
     }
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,9 +31,13 @@ public class SubCategoryController {
 
 
     @GetMapping("/all")
-    public List<SubCategory> listAllSubCategory() {
+    public List<SubCategory> listAllSubCategory(@RequestParam(required = false) Long categoryId) {
         try {
-            return this.subCategoryService.getAllSubCategory();
+        	if (categoryId != null) {
+        		return subCategoryService.getSubCategoryByCategoryId(categoryId);
+			} else {
+				return this.subCategoryService.getAllSubCategory();	
+			}
         } catch (Exception e) {
             // Log error
             return new ArrayList<SubCategory>();
@@ -53,19 +58,16 @@ public class SubCategoryController {
         return subCategory;
     }
 
-    @GetMapping("/{categoryId}")
-    public SubCategory getSubCategoryByCategoryId(@PathVariable long categoryId) {
-
-        SubCategory subCategory = subCategoryService.getSubCategoryByCategoryId(categoryId);
-
-        // throw exception if null
-
-        if (subCategory == null) {
-            throw new RuntimeException("SubCategory not found");
-        }
-
-        return subCategory;
-    }
+//    @GetMapping("/all")
+//    public List<SubCategory> getSubCategoryByCategoryId(@RequestParam long categoryId) {
+//
+//    	try {
+//            return subCategoryService.getSubCategoryByCategoryId(categoryId);
+//        } catch (Exception e) {
+//            // Log error
+//            return new ArrayList<SubCategory>();
+//        }
+//    }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")

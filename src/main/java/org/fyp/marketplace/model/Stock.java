@@ -16,7 +16,8 @@ public class Stock {
     @Id
     private long id;
 
-	private Date insertDate = new Date();
+	private Date insertDate;
+    private Date lastUpdateDate;
 	private Boolean isActive;
 	private long productId;
 	private long producerId;
@@ -24,16 +25,12 @@ public class Stock {
 	private Integer quantity;
 	private String quality;
 	private Float pricePerUnit;
-
-	/**
-	 * @param _id
-	 * @param insertDate
-	 * @param isActive
-	 */
-	public Stock(Date insertDate, Boolean isActive, long productId, long producerId,
+	
+	public Stock(Date insertDate, Date lastUpdateDate, Boolean isActive, long productId, long producerId,
 			String quantityUnit, Integer quantity, String quality, Float pricePerUnit) {
 		super();
 		this.insertDate = insertDate;
+		this.lastUpdateDate = lastUpdateDate;
 		this.isActive = isActive;
 		this.productId = productId;
 		this.producerId = producerId;
@@ -41,6 +38,14 @@ public class Stock {
 		this.quantity = quantity;
 		this.quality = quality;
 		this.pricePerUnit = pricePerUnit;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public Date getInsertDate() {
@@ -51,24 +56,20 @@ public class Stock {
 		this.insertDate = insertDate;
 	}
 
+	public Date getLastUpdateDate() {
+		return lastUpdateDate;
+	}
+
+	public void setLastUpdateDate(Date lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
+	}
+
 	public Boolean getIsActive() {
 		return isActive;
 	}
 
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
-	}
-
-	public String getQuantityUnit() {
-		return quantityUnit;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public long getProductId() {
@@ -87,8 +88,12 @@ public class Stock {
 		this.producerId = producerId;
 	}
 
-	public void setQuantityUnit(String quantity_unit) {
-		this.quantityUnit = quantity_unit;
+	public String getQuantityUnit() {
+		return quantityUnit;
+	}
+
+	public void setQuantityUnit(String quantityUnit) {
+		this.quantityUnit = quantityUnit;
 	}
 
 	public Integer getQuantity() {
@@ -114,5 +119,7 @@ public class Stock {
 	public void setPricePerUnit(Float pricePerUnit) {
 		this.pricePerUnit = pricePerUnit;
 	}
+
+	
 
 }

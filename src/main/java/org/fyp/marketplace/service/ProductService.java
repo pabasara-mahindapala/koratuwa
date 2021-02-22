@@ -3,6 +3,7 @@ package org.fyp.marketplace.service;
 import org.fyp.marketplace.model.Product;
 import org.fyp.marketplace.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,10 @@ public class ProductService {
 
 	public List<Product> getAllProducts() {
 		return productRepository.findAll();
+	}
+	
+	public List<Product> getAllProductsFiltered(Long producerId, Long categoryId, Long subCategoryId) {
+		return productRepository.findByMultiple(producerId, categoryId, subCategoryId);
 	}
 
 	public Product productsSearchById(long _id) {

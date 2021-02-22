@@ -1,15 +1,22 @@
 package org.fyp.marketplace.controller;
 
-import org.bson.types.ObjectId;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fyp.marketplace.model.Product;
 import org.fyp.marketplace.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/product")
@@ -23,9 +30,9 @@ public class ProductController {
 
 
     @GetMapping("/all")
-    public List<Product> listAllProduct() {
+    public List<Product> listAllProduct(@RequestParam(required = false) Long producerId, @RequestParam(required = false) Long categoryId, @RequestParam(required = false) Long subCategoryId) {
         try {
-            return this.productService.getAllProducts();
+        	return this.productService.getAllProductsFiltered(producerId, categoryId, subCategoryId);
         } catch (Exception e) {
             // Log error
             return new ArrayList<Product>();
@@ -44,48 +51,6 @@ public class ProductController {
         }
 
         return product;
-    }
-
-    @GetMapping("/{producerId}")
-    public List<Product> getProductByProducerId(@PathVariable long producerId) {
-
-    	List<Product> products = productService.productSearchByProducerId(producerId);
-
-        // throw exception if null
-
-        if (products == null) {
-            throw new RuntimeException("Product not found");
-        }
-
-        return products;
-    }
-
-    @GetMapping("/{categoryId}")
-    public List<Product> getProductByCategoryId(@PathVariable long categoryId) {
-
-    	List<Product> products = productService.productSearchByCategoryId(categoryId);
-
-        // throw exception if null
-
-        if (products == null) {
-            throw new RuntimeException("Product not found");
-        }
-
-        return products;
-    }
-
-    @GetMapping("/{subCategoryId}")
-    public List<Product> getProductBySubCategoryId(@PathVariable long subCategoryId) {
-
-    	List<Product> products = productService.productSearchBySubCategoryId(subCategoryId);
-
-        // throw exception if null
-
-        if (products == null) {
-            throw new RuntimeException("Product not found");
-        }
-
-        return products;
     }
 
     @PostMapping("/add")

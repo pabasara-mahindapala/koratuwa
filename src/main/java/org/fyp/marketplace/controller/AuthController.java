@@ -1,5 +1,6 @@
 package org.fyp.marketplace.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +36,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -152,6 +154,30 @@ public class AuthController {
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
+	
+	@GetMapping("/all")
+    public List<User> listAllUsers() {
+        try {
+            return this.userRepository.findAll();
+        } catch (Exception e) {
+            // Log error
+            return new ArrayList<User>();
+        }
+    }
+
+    @GetMapping("/{userId}")
+    public User getUser(@PathVariable long userId) {
+
+    	Optional<User> user = userRepository.findById(userId);
+
+        // throw exception if null
+
+        if (!user.isPresent()) {
+            throw new RuntimeException("User not found");
+        }
+
+        return user.get();
+    }
 
 	@PostMapping("/logout")
 	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN') or hasRole('TRANSPORTER')")
