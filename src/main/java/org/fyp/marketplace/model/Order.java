@@ -7,41 +7,28 @@ import java.util.Date;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-/**
- * @author OmPrakashP
- *
- */
 @Document(collection = "order")
 public class Order {
-	@Id
-	@Field(value = "_id")
-	private ObjectId _id;
+	@Transient
+    public static final String SEQUENCE_NAME = "orders_sequence";
+
+    @Id
+    private long id;
 
 	private Date insertDate = new Date();
 	private Boolean isActive;
-	private ObjectId stockId;
-	private ObjectId producerId;
-	private ObjectId customerId;
+	private long stockId;
+	private long producerId;
+	private long customerId;
 	private Integer quanity;
 
-	/**
-	 * @param _id
-	 * @param insertDate
-	 * @param isActive
-	 * 
-	 */
-
-	public ObjectId get_id() {
-		return _id;
-	}
-
-	public Order(ObjectId _id, Date insertDate, Boolean isActive, ObjectId stockId, ObjectId producerId,
-			ObjectId customerId, Integer quanity) {
+	public Order(Date insertDate, Boolean isActive, long stockId, long producerId,
+			long customerId, Integer quanity) {
 		super();
-		this._id = _id;
 		this.insertDate = insertDate;
 		this.isActive = isActive;
 		this.stockId = stockId;
@@ -66,40 +53,44 @@ public class Order {
 		this.isActive = isActive;
 	}
 
-	public ObjectId getStockId() {
-		return stockId;
-	}
-
-	public void setStockId(ObjectId stockId) {
-		this.stockId = stockId;
-	}
-
-	public ObjectId getProducerId() {
-		return producerId;
-	}
-
-	public void setProducerId(ObjectId producerId) {
-		this.producerId = producerId;
-	}
-
-	public ObjectId getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(ObjectId customerId) {
-		this.customerId = customerId;
-	}
-
 	public Integer getQuanity() {
 		return quanity;
 	}
 
-	public void setQuanity(Integer quanity) {
-		this.quanity = quanity;
+	public long getId() {
+		return id;
 	}
 
-	public void set_id(ObjectId _id) {
-		this._id = _id;
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getStockId() {
+		return stockId;
+	}
+
+	public void setStockId(long stockId) {
+		this.stockId = stockId;
+	}
+
+	public long getProducerId() {
+		return producerId;
+	}
+
+	public void setProducerId(long producerId) {
+		this.producerId = producerId;
+	}
+
+	public long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
+
+	public void setQuanity(Integer quanity) {
+		this.quanity = quanity;
 	}
 
 }

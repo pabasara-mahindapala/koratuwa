@@ -5,6 +5,7 @@ import org.fyp.marketplace.model.Vehicle;
 import org.fyp.marketplace.service.VehicleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class VehicleController {
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN') or hasRole('TRANSPORTER')")
     public List<Vehicle> listAllVehicle() {
         try {
             return this.vehicleService.getAllVehicles();
@@ -31,7 +33,8 @@ public class VehicleController {
     }
 
     @GetMapping("/{vehicleId}")
-    public Vehicle getVehicle(@PathVariable ObjectId vehicleId) {
+    @PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN') or hasRole('TRANSPORTER')")
+    public Vehicle getVehicle(@PathVariable long vehicleId) {
 
         Vehicle vehicle = vehicleService.vehiclesSearchById(vehicleId);
 
@@ -45,6 +48,7 @@ public class VehicleController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('TRANSPORTER') or hasRole('ADMIN')")
     public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle vehicle) throws Exception {
         ResponseEntity<Vehicle> result;
         try {
@@ -57,6 +61,7 @@ public class VehicleController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasRole('TRANSPORTER') or hasRole('ADMIN')")
     public ResponseEntity<Vehicle> updateVehicle(@RequestBody Vehicle vehicle) throws Exception {
         ResponseEntity<Vehicle> result;
         try {
@@ -69,7 +74,8 @@ public class VehicleController {
     }
 
     @DeleteMapping("/delete/{vehicleId}")
-    public String deleteVehicle(@PathVariable ObjectId vehicleId) {
+    @PreAuthorize("hasRole('TRANSPORTER') or hasRole('ADMIN')")
+    public String deleteVehicle(@PathVariable long vehicleId) {
 
         Vehicle vehicle = vehicleService.vehiclesSearchById(vehicleId);
 

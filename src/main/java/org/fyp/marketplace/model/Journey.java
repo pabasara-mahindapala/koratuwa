@@ -2,6 +2,7 @@ package org.fyp.marketplace.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -9,20 +10,22 @@ import java.util.Date;
 
 @Document(collection = "journey")
 public class Journey {
+	@Transient
+    public static final String SEQUENCE_NAME = "journeys_sequence";
+
     @Id
-    @Field(value = "_id")
-    private ObjectId _id;
-    private String fromCity;
+    private long id;
+
+	private String fromCity;
     private String destination;
     private Date insertDate = new Date();
     private Date lastUpdateDate = new Date();
     private Boolean isActive;
 
-    private ObjectId vehicleId;
-    private ObjectId orderId;
+    private long vehicleId;
+    private long orderId;
 
-    public Journey(ObjectId _id, String fromCity, String destination, Date insertDate, Date lastUpdateDate, Boolean isActive, ObjectId vehicleId, ObjectId orderId) {
-        this._id = _id;
+    public Journey(String fromCity, String destination, Date insertDate, Date lastUpdateDate, Boolean isActive, long vehicleId, long orderId) {
         this.fromCity = fromCity;
         this.destination = destination;
         this.insertDate = insertDate;
@@ -32,19 +35,27 @@ public class Journey {
         this.orderId = orderId;
     }
 
-    public ObjectId get_id() {
-        return _id;
-    }
-
-    public void set_id(ObjectId _id) {
-        this._id = _id;
-    }
-
     public String getFromCity() {
         return fromCity;
     }
 
-    public void setFromCity(String fromCity) {
+    public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setVehicleId(long vehicleId) {
+		this.vehicleId = vehicleId;
+	}
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
+	}
+
+	public void setFromCity(String fromCity) {
         this.fromCity = fromCity;
     }
 
@@ -56,28 +67,12 @@ public class Journey {
         this.destination = destination;
     }
 
-    public ObjectId getVehicleId() {
-        return vehicleId;
-    }
-
-    public void setVehicleId(ObjectId vehicleId) {
-        this.vehicleId = vehicleId;
-    }
-
     public Boolean getActive() {
         return isActive;
     }
 
     public void setActive(Boolean active) {
         isActive = active;
-    }
-
-    public ObjectId getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(ObjectId orderId) {
-        this.orderId = orderId;
     }
 
     public Date getInsertDate() {

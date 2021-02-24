@@ -2,6 +2,7 @@ package org.fyp.marketplace.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -9,17 +10,19 @@ import java.util.Date;
 
 @Document(collection = "vehicle")
 public class Vehicle {
+	@Transient
+    public static final String SEQUENCE_NAME = "vehicles_sequence";
+
     @Id
-    @Field(value = "_id")
-    private ObjectId _id;
-    private String vehicleNumber;
+    private long id;
+
+	private String vehicleNumber;
     private String vehicleType;
     private int capacity;
     private Date insertDate;
     private Date lastUpdateDate;
 
-    public Vehicle(ObjectId _id, String vehicleNumber, String vehicleType, int capacity, Date insertDate, Date lastUpdateDate) {
-        this._id = _id;
+    public Vehicle(String vehicleNumber, String vehicleType, int capacity, Date insertDate, Date lastUpdateDate) {
         this.vehicleNumber = vehicleNumber;
         this.vehicleType = vehicleType;
         this.capacity = capacity;
@@ -28,19 +31,21 @@ public class Vehicle {
     }
 
 
-    public ObjectId get_id() {
-        return _id;
-    }
-
-    public void set_id(ObjectId _id) {
-        this._id = _id;
-    }
-
     public String getVehicleNumber() {
         return vehicleNumber;
     }
 
-    public void setVehicleNumber(String vehicleNumber) {
+    public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+	public void setVehicleNumber(String vehicleNumber) {
         this.vehicleNumber = vehicleNumber;
     }
 

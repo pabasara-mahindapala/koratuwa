@@ -1,6 +1,5 @@
 package org.fyp.marketplace.service;
 
-import org.bson.types.ObjectId;
 import org.fyp.marketplace.model.Category;
 import org.fyp.marketplace.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,8 @@ public class CategoryService {
         return this.categoryRepository.findAll();
     }
 
-    public Category getCategoryById(ObjectId _id) {
-        return this.categoryRepository.findBy_id(_id);
+    public Category getCategoryById(long id) {
+        return this.categoryRepository.findById(id).get();
     }
 
     public Category addCategory(Category category) {

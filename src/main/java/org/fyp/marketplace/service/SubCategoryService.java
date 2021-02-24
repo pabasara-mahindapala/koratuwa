@@ -18,11 +18,11 @@ public class SubCategoryService {
         return this.subCategoryRepository.findAll();
     }
 
-    public SubCategory getSubCategoryById(ObjectId _id) {
-        return this.subCategoryRepository.findBy_id(_id);
+    public SubCategory getSubCategoryById(long _id) {
+        return this.subCategoryRepository.findById(_id).get();
     }
 
-    public SubCategory getSubCategoryByCategoryId(ObjectId categoryId){
+    public SubCategory getSubCategoryByCategoryId(long categoryId){
         return subCategoryRepository.findByCategoryId(categoryId);
     }
 

@@ -35,7 +35,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{categoryId}")
-    public Category getCategory(@PathVariable ObjectId categoryId) {
+    public Category getCategory(@PathVariable long categoryId) {
 
         Category category = categoryService.getCategoryById(categoryId);
 
@@ -49,6 +49,7 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Category> createCategory(@RequestBody Category category) throws Exception {
         ResponseEntity<Category> result;
         try {
@@ -61,6 +62,7 @@ public class CategoryController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Category> updateCategory(@RequestBody Category category) throws Exception {
         ResponseEntity<Category> result;
         try {
@@ -73,7 +75,8 @@ public class CategoryController {
     }
 
     @DeleteMapping("/delete/{categoryId}")
-    public String deleteCategory(@PathVariable ObjectId categoryId) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public String deleteCategory(@PathVariable long categoryId) {
 
         Category category = categoryService.getCategoryById(categoryId);
 

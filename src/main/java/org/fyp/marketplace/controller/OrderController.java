@@ -10,6 +10,7 @@ import org.fyp.marketplace.model.Order;
 import org.fyp.marketplace.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +35,7 @@ public class OrderController {
 	}
 
 	@GetMapping("/all")
+	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN') or hasRole('TRANSPORTER')")
 	public List<Order> listAllOrder() {
 		try {
 			return this.orderService.getAllOrders();
@@ -44,6 +46,7 @@ public class OrderController {
 	}
 
 	@PostMapping("/add")
+	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN') or hasRole('TRANSPORTER')")
 	public ResponseEntity<Order> createOrder(@RequestBody Order order) throws Exception {
 		ResponseEntity<Order> result;
 		try {
@@ -54,9 +57,5 @@ public class OrderController {
 		}
 		return result;
 	}
-
-	/**
-	 * Few other methods which we can implement 1. updateOrderDetails 2. removeOrder
-	 */
 
 }

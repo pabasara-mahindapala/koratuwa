@@ -1,14 +1,21 @@
 package org.fyp.marketplace.controller;
 
-import org.bson.types.ObjectId;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fyp.marketplace.model.SubCategory;
 import org.fyp.marketplace.service.SubCategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rest/subCategory")
@@ -33,7 +40,7 @@ public class SubCategoryController {
     }
 
     @GetMapping("/{subCategoryId}")
-    public SubCategory getSubCategory(@PathVariable ObjectId subCategoryId) {
+    public SubCategory getSubCategory(@PathVariable long subCategoryId) {
 
         SubCategory subCategory = subCategoryService.getSubCategoryById(subCategoryId);
 
@@ -47,7 +54,7 @@ public class SubCategoryController {
     }
 
     @GetMapping("/{categoryId}")
-    public SubCategory getSubCategoryByCategoryId(@PathVariable ObjectId categoryId) {
+    public SubCategory getSubCategoryByCategoryId(@PathVariable long categoryId) {
 
         SubCategory subCategory = subCategoryService.getSubCategoryByCategoryId(categoryId);
 
@@ -61,6 +68,7 @@ public class SubCategoryController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SubCategory> createSubCategory(@RequestBody SubCategory subCategory) throws Exception {
         ResponseEntity<SubCategory> result;
         try {
@@ -73,6 +81,7 @@ public class SubCategoryController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<SubCategory> updateSubCategory(@RequestBody SubCategory subCategory) throws Exception {
         ResponseEntity<SubCategory> result;
         try {
@@ -85,7 +94,8 @@ public class SubCategoryController {
     }
 
     @DeleteMapping("/delete/{subCategoryId}")
-    public String deleteSubCategory(@PathVariable ObjectId subCategoryId) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public String deleteSubCategory(@PathVariable long subCategoryId) {
 
         SubCategory subCategory = subCategoryService.getSubCategoryById(subCategoryId);
 

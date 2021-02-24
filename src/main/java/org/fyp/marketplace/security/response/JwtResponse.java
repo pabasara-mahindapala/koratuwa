@@ -7,14 +7,14 @@ import org.bson.types.ObjectId;
 public class JwtResponse {
 	private String token;
 	private String type = "Bearer";
-	private ObjectId id;
+	private long id;
 	private String username;
 	private String email;
 	private List<String> roles;
 
-	public JwtResponse(String accessToken, ObjectId objectId, String username, String email, List<String> roles) {
+	public JwtResponse(String accessToken, long id, String username, String email, List<String> roles) {
 		this.token = accessToken;
-		this.id = objectId;
+		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.roles = roles;
@@ -36,11 +36,11 @@ public class JwtResponse {
 		this.type = tokenType;
 	}
 
-	public ObjectId getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(ObjectId id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -2,6 +2,7 @@ package org.fyp.marketplace.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -9,11 +10,13 @@ import java.util.Date;
 
 @Document(collection = "product")
 public class Product {
-    @Id
-    @Field(value = "_id")
-    private ObjectId _id;
+	@Transient
+    public static final String SEQUENCE_NAME = "products_sequence";
 
-    private String productName;
+    @Id
+    private long id;
+
+	private String productName;
     private Date insertDate;
     private Date lastUpdateDate;
     private double unitPrice;
@@ -21,12 +24,11 @@ public class Product {
     private Date availableDate;
     private String cultivationMethod;
     private String location;
-    private ObjectId producerId;
-    private ObjectId categoryId;
-    private ObjectId subCategoryId;
+    private long producerId;
+    private long categoryId;
+    private long subCategoryId;
 
-    public Product(ObjectId _id, String productName, Date insertDate, Date lastUpdateDate, double unitPrice, double amount, Date availableDate, String cultivationMethod, String location, ObjectId producerId, ObjectId categoryId, ObjectId subCategoryId) {
-        this._id = _id;
+    public Product(String productName, Date insertDate, Date lastUpdateDate, double unitPrice, double amount, Date availableDate, String cultivationMethod, String location, long producerId, long categoryId, long subCategoryId) {
         this.productName = productName;
         this.insertDate = insertDate;
         this.lastUpdateDate = lastUpdateDate;
@@ -54,14 +56,6 @@ public class Product {
 
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
-    }
-
-    public ObjectId get_id() {
-        return _id;
-    }
-
-    public void set_id(ObjectId _id) {
-        this._id = _id;
     }
 
     public String getProductName() {
@@ -114,28 +108,38 @@ public class Product {
         this.location = location;
     }
 
-    public ObjectId getProducerId() {
-        return producerId;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setProducerId(ObjectId producerId) {
-        this.producerId = producerId;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public ObjectId getCategoryId() {
-        return categoryId;
-    }
+	public long getProducerId() {
+		return producerId;
+	}
 
-    public void setCategoryId(ObjectId categoryId) {
-        this.categoryId = categoryId;
-    }
+	public void setProducerId(long producerId) {
+		this.producerId = producerId;
+	}
 
-    public ObjectId getSubCategoryId() {
-        return subCategoryId;
-    }
+	public long getCategoryId() {
+		return categoryId;
+	}
 
-    public void setSubCategoryId(ObjectId subCategoryId) {
-        this.subCategoryId = subCategoryId;
-    }
+	public void setCategoryId(long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public long getSubCategoryId() {
+		return subCategoryId;
+	}
+
+	public void setSubCategoryId(long subCategoryId) {
+		this.subCategoryId = subCategoryId;
+	}
+
+    
 
 }

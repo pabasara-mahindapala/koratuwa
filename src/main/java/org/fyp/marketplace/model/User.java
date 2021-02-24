@@ -10,15 +10,18 @@ import javax.validation.constraints.Size;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "users")
 public class User {
-	@Id
-	@Field(value = "_id")
-	private ObjectId _id;
+	@Transient
+    public static final String SEQUENCE_NAME = "users_sequence";
+
+    @Id
+    private long id;
 
 	@NotBlank
 	@Size(max = 20)
@@ -67,16 +70,17 @@ public class User {
 //	}
 
 	
+	
 	public String getUsername() {
 		return username;
 	}
 
-	public ObjectId get_id() {
-		return _id;
+	public long getId() {
+		return id;
 	}
 
-	public void set_id(ObjectId _id) {
-		this._id = _id;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void setUsername(String username) {

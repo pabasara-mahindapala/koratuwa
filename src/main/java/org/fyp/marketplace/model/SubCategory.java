@@ -2,6 +2,7 @@ package org.fyp.marketplace.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -9,29 +10,30 @@ import java.util.Date;
 
 @Document(collection = "subCategory")
 public class SubCategory {
-    @Id
-    @Field(value = "_id")
-    private ObjectId _id;
+	@Transient
+    public static final String SEQUENCE_NAME = "subcategories_sequence";
 
-    private Date insertDate;
+    @Id
+    private long id;
+
+	private Date insertDate;
     private Date lastUpdateDate;
-    private ObjectId categoryId;
+    private long categoryId;
     private String subCategoryName;
 
 
-    public SubCategory(ObjectId _id, Date insertDate, Date lastUpdateDate, ObjectId categoryId, String subCategoryName) {
-        this._id = _id;
+    public SubCategory(Date insertDate, Date lastUpdateDate, long categoryId, String subCategoryName) {
         this.insertDate = insertDate;
         this.lastUpdateDate = lastUpdateDate;
         this.categoryId = categoryId;
         this.subCategoryName = subCategoryName;
     }
 
-    public ObjectId getCategoryId() {
+    public long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(ObjectId categoryId) {
+    public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -51,19 +53,19 @@ public class SubCategory {
         this.lastUpdateDate = lastUpdateDate;
     }
 
-    public ObjectId get_id() {
-        return _id;
-    }
-
-    public void set_id(ObjectId _id) {
-        this._id = _id;
-    }
-
     public String getSubCategoryName() {
         return subCategoryName;
     }
 
-    public void setSubCategoryName(String subCategoryName) {
+    public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setSubCategoryName(String subCategoryName) {
         this.subCategoryName = subCategoryName;
     }
 }
