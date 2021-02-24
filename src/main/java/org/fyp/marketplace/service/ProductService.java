@@ -25,24 +25,12 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 	
-	public List<Product> getAllProductsFiltered(Long producerId, Long categoryId, Long subCategoryId) {
-		return productRepository.findByMultiple(producerId, categoryId, subCategoryId);
+	public List<Product> getAllProductsFiltered(Long categoryId, Long subCategoryId) {
+		return productRepository.findByMultiple(categoryId, subCategoryId);
 	}
 
 	public Product productsSearchById(long _id) {
 		return productRepository.findById(_id).get();
-	}
-
-	public List<Product> productSearchByProducerId(long producerId) {
-		return productRepository.findByProducerId(producerId);
-	}
-
-	public List<Product> productSearchByCategoryId(long categoryId) {
-		return productRepository.findByCategoryId(categoryId);
-	}
-
-	public List<Product> productSearchBySubCategoryId(long subCategoryId) {
-		return productRepository.findBySubCategoryId(subCategoryId);
 	}
 
 	public Product addProduct(Product product) {
@@ -59,15 +47,5 @@ public class ProductService {
 
 	public void deleteProduct(Product product) {
 		this.productRepository.delete(product);
-	}
-
-	public Boolean validateProduct(Product product) {
-		Boolean isValid = true;
-
-		if (isValid && product.getAmount() < 1) {
-			isValid = false;
-		}
-
-		return isValid;
 	}
 }

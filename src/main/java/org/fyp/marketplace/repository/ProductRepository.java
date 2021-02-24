@@ -10,5 +10,4 @@ public interface ProductRepository extends MongoRepository<Product,Long>, Produc
 //    Product findBy_id(ObjectId _id);
     List<Product> findByCategoryId(long categoryId);
     List<Product> findBySubCategoryId(long subCategoryId);
-    List<Product> findByProducerId(long producerId);
 }

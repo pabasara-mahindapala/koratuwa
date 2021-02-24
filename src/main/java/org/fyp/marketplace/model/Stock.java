@@ -21,23 +21,28 @@ public class Stock {
 	private Boolean isActive;
 	private long productId;
 	private long producerId;
-	private String quantityUnit;
+	private Date availableDate;
+    private String quantityUnit;
 	private Integer quantity;
 	private String quality;
 	private Float pricePerUnit;
-	
+	private String location;
+    
 	public Stock(Date insertDate, Date lastUpdateDate, Boolean isActive, long productId, long producerId,
-			String quantityUnit, Integer quantity, String quality, Float pricePerUnit) {
+			Date availableDate, String quantityUnit, Integer quantity, String quality, Float pricePerUnit,
+			String location) {
 		super();
 		this.insertDate = insertDate;
 		this.lastUpdateDate = lastUpdateDate;
 		this.isActive = isActive;
 		this.productId = productId;
 		this.producerId = producerId;
+		this.availableDate = availableDate;
 		this.quantityUnit = quantityUnit;
 		this.quantity = quantity;
 		this.quality = quality;
 		this.pricePerUnit = pricePerUnit;
+		this.location = location;
 	}
 
 	public long getId() {
@@ -118,6 +123,22 @@ public class Stock {
 
 	public void setPricePerUnit(Float pricePerUnit) {
 		this.pricePerUnit = pricePerUnit;
+	}
+
+	public Date getAvailableDate() {
+		return availableDate;
+	}
+
+	public void setAvailableDate(Date availableDate) {
+		this.availableDate = availableDate;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	

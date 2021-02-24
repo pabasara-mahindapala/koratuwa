@@ -19,30 +19,22 @@ public class Product {
 	private String productName;
     private Date insertDate;
     private Date lastUpdateDate;
-    private double unitPrice;
-    private double amount;
-    private Date availableDate;
     private String cultivationMethod;
-    private String location;
-    private long producerId;
     private long categoryId;
     private long subCategoryId;
 
-    public Product(String productName, Date insertDate, Date lastUpdateDate, double unitPrice, double amount, Date availableDate, String cultivationMethod, String location, long producerId, long categoryId, long subCategoryId) {
-        this.productName = productName;
-        this.insertDate = insertDate;
-        this.lastUpdateDate = lastUpdateDate;
-        this.unitPrice = unitPrice;
-        this.amount = amount;
-        this.availableDate = availableDate;
-        this.cultivationMethod = cultivationMethod;
-        this.location = location;
-        this.producerId = producerId;
-        this.categoryId = categoryId;
-        this.subCategoryId = subCategoryId;
-    }
+    public Product(String productName, Date insertDate, Date lastUpdateDate, String cultivationMethod, long categoryId,
+			long subCategoryId) {
+		super();
+		this.productName = productName;
+		this.insertDate = insertDate;
+		this.lastUpdateDate = lastUpdateDate;
+		this.cultivationMethod = cultivationMethod;
+		this.categoryId = categoryId;
+		this.subCategoryId = subCategoryId;
+	}
 
-    public Date getInsertDate() {
+	public Date getInsertDate() {
         return insertDate;
     }
 
@@ -66,32 +58,6 @@ public class Product {
         this.productName = productName;
     }
 
-    public double getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    
-
-    public Date getAvailableDate() {
-		return availableDate;
-	}
-
-	public void setAvailableDate(Date availableDate) {
-		this.availableDate = availableDate;
-	}
-
 	public String getCultivationMethod() {
         return cultivationMethod;
     }
@@ -100,28 +66,12 @@ public class Product {
         this.cultivationMethod = cultivationMethod;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-	public long getId() {
+    public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public long getProducerId() {
-		return producerId;
-	}
-
-	public void setProducerId(long producerId) {
-		this.producerId = producerId;
 	}
 
 	public long getCategoryId() {

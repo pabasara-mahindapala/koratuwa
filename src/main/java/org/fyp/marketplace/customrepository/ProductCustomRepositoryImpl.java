@@ -15,11 +15,9 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
 	@Autowired
 	MongoTemplate mongoTemplate;
 
-	public List<Product> findByMultiple(Long producerId, Long categoryId, Long subCategoryId) {
+	public List<Product> findByMultiple(Long categoryId, Long subCategoryId) {
 		final Query query = new Query();
 		final List<Criteria> criteria = new ArrayList<>();
-		if (producerId != null)
-			criteria.add(Criteria.where("producerId").is(producerId));
 		if (categoryId != null)
 			criteria.add(Criteria.where("categoryId").is(categoryId));
 		if (subCategoryId != null)

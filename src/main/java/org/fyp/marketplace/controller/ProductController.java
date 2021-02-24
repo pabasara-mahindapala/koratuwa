@@ -30,9 +30,9 @@ public class ProductController {
 
 
     @GetMapping("/all")
-    public List<Product> listAllProduct(@RequestParam(required = false) Long producerId, @RequestParam(required = false) Long categoryId, @RequestParam(required = false) Long subCategoryId) {
+    public List<Product> listAllProduct(@RequestParam(required = false) Long categoryId, @RequestParam(required = false) Long subCategoryId) {
         try {
-        	return this.productService.getAllProductsFiltered(producerId, categoryId, subCategoryId);
+        	return this.productService.getAllProductsFiltered(categoryId, subCategoryId);
         } catch (Exception e) {
             // Log error
             return new ArrayList<Product>();
