@@ -263,7 +263,7 @@ public class AuthController {
 	
 	@PostMapping("/review/{userId}")
 	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN')")
-    public ResponseEntity<Review> reviewUser(@PathVariable ObjectId userId, @RequestBody Review review) throws Exception {
+    public ResponseEntity<Review> reviewUser(@PathVariable long userId, @RequestBody Review review) throws Exception {
         ResponseEntity<Review> result;
         try {
         	String currentUserName;
@@ -271,10 +271,10 @@ public class AuthController {
     		if (!(authentication instanceof AnonymousAuthenticationToken)) {
     		    currentUserName = authentication.getName();
     		    Optional<User> reviewer = userRepository.findByUsername(currentUserName);
-    		    review.setReviewerId(reviewer.get().get_id());
+    		    review.setReviewerId(reviewer.get().getId());
     		    review.setInsertDate(new Date());
     		    Review addedReview = reviewRepository.save(review);
-    		    User reviewedUser = userRepository.findBy_id(userId);
+    		    User reviewedUser = userRepository.findById(userId).get();
     		    Set<Review> reviews = reviewedUser.getReviews();
     		    if (reviews == null) {
 					reviews = new HashSet<>();
