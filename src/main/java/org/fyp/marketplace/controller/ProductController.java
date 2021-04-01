@@ -3,6 +3,7 @@ package org.fyp.marketplace.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fyp.marketplace.dtos.ProductDto;
 import org.fyp.marketplace.model.Product;
 import org.fyp.marketplace.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -30,19 +31,19 @@ public class ProductController {
 
 
     @GetMapping("/all")
-    public List<Product> listAllProduct(@RequestParam(required = false) Long categoryId, @RequestParam(required = false) Long subCategoryId) {
+    public List<ProductDto> listAllProduct(@RequestParam(required = false) Long categoryId, @RequestParam(required = false) Long subCategoryId) {
         try {
         	return this.productService.getAllProductsFiltered(categoryId, subCategoryId);
         } catch (Exception e) {
             // Log error
-            return new ArrayList<Product>();
+            return new ArrayList<ProductDto>();
         }
     }
 
     @GetMapping("/{productId}")
-    public Product getProduct(@PathVariable long productId) {
+    public ProductDto getProduct(@PathVariable long productId) {
 
-        Product product = productService.productsSearchById(productId);
+    	ProductDto product = productService.productsSearchById(productId);
 
         // throw exception if null
 
@@ -83,7 +84,7 @@ public class ProductController {
     @PreAuthorize("hasRole('SELLER') or hasRole('ADMIN')")
     public String deleteProduct(@PathVariable long productId) {
 
-        Product product = productService.productsSearchById(productId);
+    	ProductDto product = productService.productsSearchById(productId);
 
         // throw exception if null
 
@@ -91,8 +92,8 @@ public class ProductController {
             throw new RuntimeException("Product not found");
         }
 
-        productService.deleteProduct(product);
+        productService.deleteProduct(product.getProduct());
 
-        return "Deleted Product : " + product.getProductName();
+        return "Deleted Product : " + product.getProduct().getProductName();
     }
 }

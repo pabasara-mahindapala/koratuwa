@@ -1,36 +1,50 @@
 package org.fyp.marketplace.service;
 
-import org.fyp.marketplace.model.Product;
-import org.fyp.marketplace.repository.ProductRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.fyp.marketplace.dtos.ProductDto;
+import org.fyp.marketplace.model.Product;
+import org.fyp.marketplace.repository.CategoryRepository;
+import org.fyp.marketplace.repository.ProductRepository;
+import org.fyp.marketplace.repository.SubCategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class ProductService {
-	final ProductRepository productRepository;
-	final CategoryService categoryService;
-	final SubCategoryService subCategoryService;
+	@Autowired
+	ProductRepository productRepository;
+	@Autowired
+	CategoryRepository categoryRepository;
+	@Autowired
+	SubCategoryRepository subCategoryRepository;
 
-	public ProductService(ProductRepository productRepository, CategoryService categoryService,
-			SubCategoryService subCategoryService) {
-		this.productRepository = productRepository;
-		this.categoryService = categoryService;
-		this.subCategoryService = subCategoryService;
+	public List<ProductDto> getAllProducts() {
+		List<Product> products = productRepository.findAll();
+		List<ProductDto> productDtos = new ArrayList<ProductDto>();
+		for (Product p : products) {
+			productDtos.add(new ProductDto(p, categoryRepository.findById(p.getCategoryId()).get().getCategoryName(),
+					subCategoryRepository.findById(p.getSubCategoryId()).get().getSubCategoryName()));
+		}
+		return productDtos;
 	}
 
-	public List<Product> getAllProducts() {
-		return productRepository.findAll();
-	}
-	
-	public List<Product> getAllProductsFiltered(Long categoryId, Long subCategoryId) {
-		return productRepository.findByMultiple(categoryId, subCategoryId);
+	public List<ProductDto> getAllProductsFiltered(Long categoryId, Long subCategoryId) {
+		List<Product> products = productRepository.findByMultiple(categoryId, subCategoryId);
+		List<ProductDto> productDtos = new ArrayList<ProductDto>();
+		for (Product p : products) {
+			productDtos.add(new ProductDto(p, categoryRepository.findById(p.getCategoryId()).get().getCategoryName(),
+					subCategoryRepository.findById(p.getSubCategoryId()).get().getSubCategoryName()));
+		}
+		return productDtos;
 	}
 
-	public Product productsSearchById(long _id) {
-		return productRepository.findById(_id).get();
+	public ProductDto productsSearchById(long _id) {
+		Product p = productRepository.findById(_id).get();
+		return new ProductDto(p, categoryRepository.findById(p.getCategoryId()).get().getCategoryName(),
+				subCategoryRepository.findById(p.getSubCategoryId()).get().getSubCategoryName());
 	}
 
 	public Product addProduct(Product product) {

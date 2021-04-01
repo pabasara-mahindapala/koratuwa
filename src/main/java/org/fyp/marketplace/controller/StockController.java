@@ -6,6 +6,7 @@ package org.fyp.marketplace.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fyp.marketplace.dtos.StockDto;
 import org.fyp.marketplace.model.Product;
 import org.fyp.marketplace.model.Stock;
 import org.fyp.marketplace.service.StockService;
@@ -38,19 +39,19 @@ public class StockController {
 	}
 
 	@GetMapping("all")
-	public List<Stock> listAllStock(@RequestParam(required = false) Long productId, @RequestParam(required = false) Long producerId) {
+	public List<StockDto> listAllStock(@RequestParam(required = false) Long productId, @RequestParam(required = false) Long producerId) {
 		try {
 			return this.stockService.getAllStocksFiltered(productId, producerId);
 		} catch (Exception e) {
 			//Log error
-			return new ArrayList<Stock>();
+			return new ArrayList<StockDto>();
 		}
 	}
 	
 	@GetMapping("/{stockId}")
-    public Stock getStock(@PathVariable long stockId) {
+    public StockDto getStock(@PathVariable long stockId) {
 
-        Stock stock = stockService.stocksSearchById(stockId);
+		StockDto stock = stockService.stocksSearchById(stockId);
 
         // throw exception if null
 
@@ -91,7 +92,7 @@ public class StockController {
     @PreAuthorize("hasRole('SELLER') or hasRole('ADMIN')")
     public String deleteStock(@PathVariable long stockId) {
 
-        Stock stock = stockService.stocksSearchById(stockId);
+    	StockDto stock = stockService.stocksSearchById(stockId);
 
         // throw exception if null
 
@@ -99,8 +100,8 @@ public class StockController {
             throw new RuntimeException("Stock not found");
         }
 
-        stockService.deleteStock(stock);
+        stockService.deleteStock(stock.getStock());
 
-        return "Deleted Stock : " + stock.getQuantity() + stock.getQuantityUnit();
+        return "Deleted Stock : " + stock.getStock().getQuantity() + stock.getStock().getQuantityUnit();
     }
 }
