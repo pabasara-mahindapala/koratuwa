@@ -1,24 +1,33 @@
 package org.fyp.marketplace.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.fyp.marketplace.dtos.ProductDto;
+import org.fyp.marketplace.dtos.StockDto;
 import org.fyp.marketplace.model.Product;
 import org.fyp.marketplace.model.Stock;
+import org.fyp.marketplace.repository.ProductRepository;
 import org.fyp.marketplace.repository.StockRepository;
+import org.fyp.marketplace.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StockService {
 
-	final StockRepository stockRepository;
+	@Autowired
+	StockRepository stockRepository;
+	@Autowired
+	ProductRepository productRepository;
+	@Autowired
+	UserRepository userRepository;
 
-	public StockService(StockRepository stockRepository) {
-		this.stockRepository = stockRepository;
-	}
-
-	public Stock stocksSearchById(long stockId) {
-		return stockRepository.findById(stockId).get();
+	public StockDto stocksSearchById(long stockId) {
+		Stock s = stockRepository.findById(stockId).get();
+		return new StockDto(s, productRepository.findById(s.getProductId()).get().getProductName(),
+				userRepository.findById(s.getProducerId()).get().getUsername());
 	}
 
 	public Stock addStock(Stock stock) {
@@ -26,7 +35,7 @@ public class StockService {
 		stock.setLastUpdateDate(new Date());
 		Stock newStock = this.stockRepository.save(stock);
 		return newStock;
-		
+
 	}
 
 	public Stock updateStock(Stock stock) {
@@ -35,11 +44,17 @@ public class StockService {
 	}
 
 	public void deleteStock(Stock stock) {
-		this.stockRepository.delete(stock);		
+		this.stockRepository.delete(stock);
 	}
 
-	public List<Stock> getAllStocksFiltered(Long productId, Long producerId) {
-		return this.stockRepository.findByMultiple(productId, producerId);
+	public List<StockDto> getAllStocksFiltered(Long productId, Long producerId) {
+		List<Stock> stocks = stockRepository.findByMultiple(productId, producerId);
+		List<StockDto> stockDtos = new ArrayList<StockDto>();
+		for (Stock s : stocks) {
+			stockDtos.add(new StockDto(s, productRepository.findById(s.getProductId()).get().getProductName(),
+					userRepository.findById(s.getProducerId()).get().getUsername()));
+		}
+		return stockDtos;
 	}
 
 }
