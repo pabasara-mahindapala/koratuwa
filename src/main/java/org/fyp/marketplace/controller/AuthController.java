@@ -1,5 +1,6 @@
 package org.fyp.marketplace.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -11,10 +12,15 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
+import org.fyp.marketplace.dtos.ProductDto;
+import org.fyp.marketplace.dtos.UserDto;
 import org.fyp.marketplace.model.Category;
 import org.fyp.marketplace.model.ERole;
+import org.fyp.marketplace.model.ImageModel;
+import org.fyp.marketplace.model.Product;
 import org.fyp.marketplace.model.Role;
 import org.fyp.marketplace.model.User;
+import org.fyp.marketplace.repository.ImageRepository;
 import org.fyp.marketplace.repository.RoleRepository;
 import org.fyp.marketplace.repository.UserRepository;
 import org.fyp.marketplace.security.jwt.JwtUtils;
@@ -24,6 +30,7 @@ import org.fyp.marketplace.security.request.UpdateRequest;
 import org.fyp.marketplace.security.response.JwtResponse;
 import org.fyp.marketplace.security.response.MessageResponse;
 import org.fyp.marketplace.service.UserDetailsImpl;
+import org.fyp.marketplace.util.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +41,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +50,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -56,6 +66,9 @@ public class AuthController {
 
 	@Autowired
 	RoleRepository roleRepository;
+
+	@Autowired
+	ImageRepository imageRepository;
 
 	@Autowired
 	PasswordEncoder encoder;
@@ -154,30 +167,37 @@ public class AuthController {
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
-	
+
 	@GetMapping("/all")
-    public List<User> listAllUsers() {
-        try {
-            return this.userRepository.findAll();
-        } catch (Exception e) {
-            // Log error
-            return new ArrayList<User>();
-        }
-    }
+	public List<UserDto> listAllUsers() {
+		try {
+			List<User> users = userRepository.findAll();
 
-    @GetMapping("/{userId}")
-    public User getUser(@PathVariable long userId) {
+			List<UserDto> userDtos = new ArrayList<UserDto>();
+			for (User u : users) {
+				userDtos.add(new UserDto(u, imageRepository.findByUserId(u.getId()) == null ? null
+						: imageRepository.findByUserId(u.getId()).getUrl()));
+			}
+			return userDtos;
+		} catch (Exception e) {
+			// Log error
+			return new ArrayList<UserDto>();
+		}
+	}
 
-    	Optional<User> user = userRepository.findById(userId);
+	@GetMapping("/{userId}")
+	public UserDto getUser(@PathVariable long userId) {
 
-        // throw exception if null
+		Optional<User> user = userRepository.findById(userId);
 
-        if (!user.isPresent()) {
-            throw new RuntimeException("User not found");
-        }
+		// throw exception if null
+		if (!user.isPresent()) {
+			throw new RuntimeException("User not found");
+		}
 
-        return user.get();
-    }
+		return new UserDto(user.get(),
+				imageRepository.findByUserId(userId) == null ? null : imageRepository.findByUserId(userId).getUrl());
+	}
 
 	@PostMapping("/logout")
 	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN') or hasRole('TRANSPORTER')")
@@ -278,5 +298,22 @@ public class AuthController {
 		userRepository.delete(user.get());
 
 		return "Deleted user : " + user.get().getUsername();
+	}
+
+	@PostMapping("/images/add")
+	public String addImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam Long userId)
+			throws IOException {
+
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+
+		String uploadDir = "images/user-images/" + userId;
+
+		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+		ImageModel image = new ImageModel(1, userId, null, fileName, multipartFile.getContentType(), new Date(),
+				uploadDir + "/" + fileName);
+		this.imageRepository.save(image);
+
+		return "Added image : " + fileName;
 	}
 }
