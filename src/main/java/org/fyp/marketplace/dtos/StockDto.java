@@ -1,20 +1,26 @@
 package org.fyp.marketplace.dtos;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.fyp.marketplace.model.Product;
 import org.fyp.marketplace.model.Stock;
 
 public class StockDto {
 	private Stock stock;
-	
+
 	private String productName;
-	
+
 	private String producerName;
 
-	public StockDto(Stock stock, String productName, String producerName) {
+	private HashMap<Integer, String> imagePaths;
+
+	public StockDto(Stock stock, String productName, String producerName, HashMap<Integer, String> imagePaths) {
 		super();
 		this.stock = stock;
 		this.productName = productName;
 		this.producerName = producerName;
+		this.imagePaths = imagePaths;
 	}
 
 	public Stock getStock() {
@@ -40,8 +46,13 @@ public class StockDto {
 	public void setProducerName(String producerName) {
 		this.producerName = producerName;
 	}
-	
-	
-	
-	
+
+	public HashMap<Integer, String> getImagePaths() {
+		return imagePaths;
+	}
+
+	public void setImagePaths(HashMap<Integer, String> imagePaths) {
+		this.imagePaths = imagePaths;
+	}
+
 }
