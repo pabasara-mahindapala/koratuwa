@@ -1,4 +1,4 @@
-package org.fyp.marketplace.security.request;
+package lk.agrohub.market.security.request;
 
 import javax.validation.constraints.NotBlank;
 

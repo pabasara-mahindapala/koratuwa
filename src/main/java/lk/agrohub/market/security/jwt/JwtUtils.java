@@ -1,7 +1,6 @@
-package org.fyp.marketplace.security.jwt;
+package lk.agrohub.market.security.jwt;
 import java.util.Date;
 
-import org.fyp.marketplace.service.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 
 import io.jsonwebtoken.*;
+import lk.agrohub.market.service.UserDetailsImpl;
 
 @Component
 public class JwtUtils {

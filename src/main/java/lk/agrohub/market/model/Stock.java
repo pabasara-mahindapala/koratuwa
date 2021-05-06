@@ -1,4 +1,4 @@
-package org.fyp.marketplace.model;
+package lk.agrohub.market.model;
 
 import java.util.Date;
 

@@ -1,10 +1,11 @@
-package org.fyp.marketplace.repository;
+package lk.agrohub.market.repository;
 
 import java.util.Optional;
 
 import org.bson.types.ObjectId;
-import org.fyp.marketplace.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import lk.agrohub.market.model.User;
 
 
 

@@ -1,8 +1,8 @@
-package org.fyp.marketplace.customrepository;
+package lk.agrohub.market.customrepository;
 
 import java.util.List;
 
-import org.fyp.marketplace.model.Stock;
+import lk.agrohub.market.model.Stock;
 
 public interface StockCustomRepository {
 	List<Stock> findByMultiple(Long productId, Long producerId);

@@ -1,10 +1,8 @@
-package org.fyp.marketplace.controller;
+package lk.agrohub.market.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fyp.marketplace.model.SubCategory;
-import org.fyp.marketplace.service.SubCategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import lk.agrohub.market.model.SubCategory;
+import lk.agrohub.market.service.SubCategoryService;
 
 @RestController
 @RequestMapping("/rest/subCategory")

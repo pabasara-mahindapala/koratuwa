@@ -1,10 +1,10 @@
-package org.fyp.marketplace.dtos;
+package lk.agrohub.market.dtos;
 
 import java.util.HashMap;
 import java.util.List;
 
-import org.fyp.marketplace.model.Product;
-import org.fyp.marketplace.model.Stock;
+import lk.agrohub.market.model.Product;
+import lk.agrohub.market.model.Stock;
 
 public class StockDto {
 	private Stock stock;

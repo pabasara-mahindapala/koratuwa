@@ -1,10 +1,11 @@
-package org.fyp.marketplace.service;
+package lk.agrohub.market.service;
 
 import org.bson.types.ObjectId;
-import org.fyp.marketplace.model.SubCategory;
-import org.fyp.marketplace.repository.SubCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import lk.agrohub.market.model.SubCategory;
+import lk.agrohub.market.repository.SubCategoryRepository;
 
 import java.util.Date;
 import java.util.List;

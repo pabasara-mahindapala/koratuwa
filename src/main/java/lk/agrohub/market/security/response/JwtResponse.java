@@ -1,4 +1,4 @@
-package org.fyp.marketplace.security.response;
+package lk.agrohub.market.security.response;
 
 import java.util.List;
 

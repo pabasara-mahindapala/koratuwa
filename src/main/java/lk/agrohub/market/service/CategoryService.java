@@ -1,9 +1,10 @@
-package org.fyp.marketplace.service;
+package lk.agrohub.market.service;
 
-import org.fyp.marketplace.model.Category;
-import org.fyp.marketplace.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import lk.agrohub.market.model.Category;
+import lk.agrohub.market.repository.CategoryRepository;
 
 import java.util.Date;
 import java.util.List;

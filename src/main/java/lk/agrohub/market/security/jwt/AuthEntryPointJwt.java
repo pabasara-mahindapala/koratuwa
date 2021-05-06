@@ -1,4 +1,4 @@
-package org.fyp.marketplace.security.jwt;
+package lk.agrohub.market.security.jwt;
 
 import java.io.IOException;
 

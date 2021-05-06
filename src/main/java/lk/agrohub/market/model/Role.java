@@ -1,4 +1,4 @@
-package org.fyp.marketplace.model;
+package lk.agrohub.market.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

@@ -1,21 +1,22 @@
-package org.fyp.marketplace.service;
+package lk.agrohub.market.service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import org.fyp.marketplace.dtos.ProductDto;
-import org.fyp.marketplace.dtos.StockDto;
-import org.fyp.marketplace.model.ImageModel;
-import org.fyp.marketplace.model.Product;
-import org.fyp.marketplace.model.Stock;
-import org.fyp.marketplace.repository.ImageRepository;
-import org.fyp.marketplace.repository.ProductRepository;
-import org.fyp.marketplace.repository.StockRepository;
-import org.fyp.marketplace.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import lk.agrohub.market.dtos.ProductDto;
+import lk.agrohub.market.dtos.StockDto;
+import lk.agrohub.market.model.ImageModel;
+import lk.agrohub.market.model.Product;
+import lk.agrohub.market.model.Stock;
+import lk.agrohub.market.repository.ImageRepository;
+import lk.agrohub.market.repository.ProductRepository;
+import lk.agrohub.market.repository.StockRepository;
+import lk.agrohub.market.repository.UserRepository;
 
 @Service
 public class StockService {

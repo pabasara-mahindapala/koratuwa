@@ -1,12 +1,13 @@
-package org.fyp.marketplace.service;
+package lk.agrohub.market.service;
 
 import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
-import org.fyp.marketplace.model.Order;
-import org.fyp.marketplace.repository.OrderRepository;
 import org.springframework.stereotype.Service;
+
+import lk.agrohub.market.model.Order;
+import lk.agrohub.market.repository.OrderRepository;
 
 @Service
 public class OrderService {

@@ -1,4 +1,4 @@
-package org.fyp.marketplace.config;
+package lk.agrohub.market.config;
 
 import java.nio.file.*;
 

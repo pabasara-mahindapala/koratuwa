@@ -1,10 +1,11 @@
-package org.fyp.marketplace.repository;
+package lk.agrohub.market.repository;
 
 import java.util.List;
 
-import org.fyp.marketplace.model.CartItem;
-import org.fyp.marketplace.model.ImageModel;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import lk.agrohub.market.model.CartItem;
+import lk.agrohub.market.model.ImageModel;
 
 public interface ImageRepository extends MongoRepository<ImageModel, Long> {
 	ImageModel findByUserId(long userId);

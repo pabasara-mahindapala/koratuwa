@@ -1,10 +1,11 @@
-package org.fyp.marketplace.service;
+package lk.agrohub.market.service;
 
 import org.bson.types.ObjectId;
-import org.fyp.marketplace.model.Product;
-import org.fyp.marketplace.model.Vehicle;
-import org.fyp.marketplace.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
+
+import lk.agrohub.market.model.Product;
+import lk.agrohub.market.model.Vehicle;
+import lk.agrohub.market.repository.VehicleRepository;
 
 import java.util.Date;
 import java.util.List;

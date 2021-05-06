@@ -1,12 +1,13 @@
-package org.fyp.marketplace.controller;
+package lk.agrohub.market.controller;
 
 import org.bson.types.ObjectId;
-import org.fyp.marketplace.model.Category;
-import org.fyp.marketplace.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import lk.agrohub.market.model.Category;
+import lk.agrohub.market.service.CategoryService;
 
 import java.util.ArrayList;
 import java.util.List;

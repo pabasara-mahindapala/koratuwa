@@ -1,11 +1,8 @@
-package org.fyp.marketplace.controller;
+package lk.agrohub.market.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fyp.marketplace.dtos.ProductDto;
-import org.fyp.marketplace.model.Product;
-import org.fyp.marketplace.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import lk.agrohub.market.dtos.ProductDto;
+import lk.agrohub.market.model.Product;
+import lk.agrohub.market.service.ProductService;
 
 @RestController
 @RequestMapping("/rest/product")

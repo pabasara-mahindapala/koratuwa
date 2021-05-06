@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fyp.marketplace.config;
+package lk.agrohub.market.config;
 
 import org.springframework.context.annotation.Configuration;
 

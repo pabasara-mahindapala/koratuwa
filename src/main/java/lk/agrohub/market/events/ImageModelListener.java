@@ -1,11 +1,12 @@
-package org.fyp.marketplace.events;
+package lk.agrohub.market.events;
 
-import org.fyp.marketplace.model.ImageModel;
-import org.fyp.marketplace.service.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.stereotype.Component;
+
+import lk.agrohub.market.model.ImageModel;
+import lk.agrohub.market.service.SequenceGeneratorService;
 
 @Component
 public class ImageModelListener extends AbstractMongoEventListener<ImageModel> {

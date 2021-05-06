@@ -1,6 +1,6 @@
-package org.fyp.marketplace.dtos;
+package lk.agrohub.market.dtos;
 
-import org.fyp.marketplace.model.Product;
+import lk.agrohub.market.model.Product;
 
 public class ProductDto {
 	private Product product;

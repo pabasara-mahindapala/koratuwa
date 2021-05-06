@@ -1,4 +1,4 @@
-package org.fyp.marketplace.model;
+package lk.agrohub.market.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -17,61 +17,82 @@ public class Product {
     private long id;
 
 	private String productName;
+	private String description;
+	
     private Date insertDate;
     private Date lastUpdateDate;
-    private String cultivationMethod;
+    private Date availableDate;
+    
     private long categoryId;
     private long subCategoryId;
-
-    public Product(String productName, Date insertDate, Date lastUpdateDate, String cultivationMethod, long categoryId,
-			long subCategoryId) {
+	private long producerId;	
+	
+	private Integer quantity;
+	private Float pricePerUnit;
+	private String city;
+	
+	public Product(String productName, String description, Date insertDate, Date lastUpdateDate, Date availableDate,
+			long categoryId, long subCategoryId, long producerId, Integer quantity, Float pricePerUnit, String city) {
 		super();
 		this.productName = productName;
+		this.description = description;
 		this.insertDate = insertDate;
 		this.lastUpdateDate = lastUpdateDate;
-		this.cultivationMethod = cultivationMethod;
+		this.availableDate = availableDate;
 		this.categoryId = categoryId;
 		this.subCategoryId = subCategoryId;
+		this.producerId = producerId;
+		this.quantity = quantity;
+		this.pricePerUnit = pricePerUnit;
+		this.city = city;
 	}
 
-	public Date getInsertDate() {
-        return insertDate;
-    }
-
-    public void setInsertDate(Date insertDate) {
-        this.insertDate = insertDate;
-    }
-
-    public Date getLastUpdateDate() {
-        return lastUpdateDate;
-    }
-
-    public void setLastUpdateDate(Date lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-	public String getCultivationMethod() {
-        return cultivationMethod;
-    }
-
-    public void setCultivationMethod(String cultivationMethod) {
-        this.cultivationMethod = cultivationMethod;
-    }
-
-    public long getId() {
+	public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getInsertDate() {
+		return insertDate;
+	}
+
+	public void setInsertDate(Date insertDate) {
+		this.insertDate = insertDate;
+	}
+
+	public Date getLastUpdateDate() {
+		return lastUpdateDate;
+	}
+
+	public void setLastUpdateDate(Date lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
+	}
+
+	public Date getAvailableDate() {
+		return availableDate;
+	}
+
+	public void setAvailableDate(Date availableDate) {
+		this.availableDate = availableDate;
 	}
 
 	public long getCategoryId() {
@@ -89,6 +110,42 @@ public class Product {
 	public void setSubCategoryId(long subCategoryId) {
 		this.subCategoryId = subCategoryId;
 	}
+
+	public long getProducerId() {
+		return producerId;
+	}
+
+	public void setProducerId(long producerId) {
+		this.producerId = producerId;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public Float getPricePerUnit() {
+		return pricePerUnit;
+	}
+
+	public void setPricePerUnit(Float pricePerUnit) {
+		this.pricePerUnit = pricePerUnit;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+    
+
+	
 
     
 

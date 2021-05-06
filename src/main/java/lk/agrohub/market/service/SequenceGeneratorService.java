@@ -1,10 +1,11 @@
-package org.fyp.marketplace.service;
+package lk.agrohub.market.service;
 
-import org.fyp.marketplace.model.DatabaseSequence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+
+import lk.agrohub.market.model.DatabaseSequence;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package org.fyp.marketplace.service;
+package lk.agrohub.market.service;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,12 +6,13 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
-import org.fyp.marketplace.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lk.agrohub.market.model.User;
 
 
 public class UserDetailsImpl implements UserDetails {

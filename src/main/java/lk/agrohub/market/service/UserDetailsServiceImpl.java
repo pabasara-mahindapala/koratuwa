@@ -1,13 +1,14 @@
-package org.fyp.marketplace.service;
+package lk.agrohub.market.service;
 
-import org.fyp.marketplace.model.User;
-import org.fyp.marketplace.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import lk.agrohub.market.model.User;
+import lk.agrohub.market.repository.UserRepository;
 
 
 

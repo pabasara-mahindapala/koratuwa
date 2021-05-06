@@ -1,12 +1,13 @@
-package org.fyp.marketplace.controller;
+package lk.agrohub.market.controller;
 
 import org.bson.types.ObjectId;
-import org.fyp.marketplace.model.Journey;
-import org.fyp.marketplace.service.JourneyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import lk.agrohub.market.model.Journey;
+import lk.agrohub.market.service.JourneyService;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,14 +1,15 @@
-package org.fyp.marketplace.customrepository;
+package lk.agrohub.market.customrepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fyp.marketplace.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+
+import lk.agrohub.market.model.Product;
 
 @Repository
 public class ProductCustomRepositoryImpl implements ProductCustomRepository {

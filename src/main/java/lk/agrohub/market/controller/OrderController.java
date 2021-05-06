@@ -1,13 +1,11 @@
 /**
  * 
  */
-package org.fyp.marketplace.controller;
+package lk.agrohub.market.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fyp.marketplace.model.Order;
-import org.fyp.marketplace.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import lk.agrohub.market.model.Order;
+import lk.agrohub.market.service.OrderService;
 
 /**
  * @author

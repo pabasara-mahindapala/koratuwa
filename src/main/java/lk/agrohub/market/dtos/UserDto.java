@@ -1,6 +1,6 @@
-package org.fyp.marketplace.dtos;
+package lk.agrohub.market.dtos;
 
-import org.fyp.marketplace.model.User;
+import lk.agrohub.market.model.User;
 
 public class UserDto {
 	private User user;

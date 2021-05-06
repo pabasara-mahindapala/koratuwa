@@ -1,4 +1,4 @@
-package org.fyp.marketplace.controller;
+package lk.agrohub.market.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,25 +12,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
-import org.fyp.marketplace.dtos.ProductDto;
-import org.fyp.marketplace.dtos.UserDto;
-import org.fyp.marketplace.model.Category;
-import org.fyp.marketplace.model.ERole;
-import org.fyp.marketplace.model.ImageModel;
-import org.fyp.marketplace.model.Product;
-import org.fyp.marketplace.model.Role;
-import org.fyp.marketplace.model.User;
-import org.fyp.marketplace.repository.ImageRepository;
-import org.fyp.marketplace.repository.RoleRepository;
-import org.fyp.marketplace.repository.UserRepository;
-import org.fyp.marketplace.security.jwt.JwtUtils;
-import org.fyp.marketplace.security.request.LoginRequest;
-import org.fyp.marketplace.security.request.SignupRequest;
-import org.fyp.marketplace.security.request.UpdateRequest;
-import org.fyp.marketplace.security.response.JwtResponse;
-import org.fyp.marketplace.security.response.MessageResponse;
-import org.fyp.marketplace.service.UserDetailsImpl;
-import org.fyp.marketplace.util.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +34,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import lk.agrohub.market.dtos.ProductDto;
+import lk.agrohub.market.dtos.UserDto;
+import lk.agrohub.market.model.Category;
+import lk.agrohub.market.model.ERole;
+import lk.agrohub.market.model.ImageModel;
+import lk.agrohub.market.model.Product;
+import lk.agrohub.market.model.Role;
+import lk.agrohub.market.model.User;
+import lk.agrohub.market.repository.ImageRepository;
+import lk.agrohub.market.repository.RoleRepository;
+import lk.agrohub.market.repository.UserRepository;
+import lk.agrohub.market.security.jwt.JwtUtils;
+import lk.agrohub.market.security.request.LoginRequest;
+import lk.agrohub.market.security.request.SignupRequest;
+import lk.agrohub.market.security.request.UpdateRequest;
+import lk.agrohub.market.security.response.JwtResponse;
+import lk.agrohub.market.security.response.MessageResponse;
+import lk.agrohub.market.service.UserDetailsImpl;
+import lk.agrohub.market.util.FileUploadUtil;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

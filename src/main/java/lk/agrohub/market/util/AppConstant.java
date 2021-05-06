@@ -1,4 +1,4 @@
-package org.fyp.marketplace.util;
+package lk.agrohub.market.util;
 
 public final class AppConstant {
     public static final String MSG_TYPE_SUCCESS = "SUCCESS";

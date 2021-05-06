@@ -1,20 +1,13 @@
 /**
  * 
  */
-package org.fyp.marketplace.controller;
+package lk.agrohub.market.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.fyp.marketplace.dtos.StockDto;
-import org.fyp.marketplace.model.ImageModel;
-import org.fyp.marketplace.model.Product;
-import org.fyp.marketplace.model.Stock;
-import org.fyp.marketplace.repository.ImageRepository;
-import org.fyp.marketplace.service.StockService;
-import org.fyp.marketplace.util.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +23,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import lk.agrohub.market.dtos.StockDto;
+import lk.agrohub.market.model.ImageModel;
+import lk.agrohub.market.model.Product;
+import lk.agrohub.market.model.Stock;
+import lk.agrohub.market.repository.ImageRepository;
+import lk.agrohub.market.service.StockService;
+import lk.agrohub.market.util.FileUploadUtil;
 
 @RestController
 @RequestMapping("/rest/stock")
