@@ -4,33 +4,25 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "users")
 public class User {
 	@Transient
-    public static final String SEQUENCE_NAME = "users_sequence";
+	public static final String SEQUENCE_NAME = "users_sequence";
 
-    @Id
-    private long id;
+	@Id
+	private long id;
 
 	@NotBlank
 	@Size(max = 20)
 	private String username;
-
-	@NotBlank
-	@Size(max = 50)
-	@Email
-	private String email;
 
 	@NotBlank
 	@Size(max = 120)
@@ -40,26 +32,33 @@ public class User {
 	private String lastName;
 	private Date insertDate;
 	private Date lastUpdateDate;
+	private Date birthday;
 	private String mobileNumber;
+	private String nic;
 	private String address;
 
 	@DBRef
 	private Set<Role> roles = new HashSet<>();
 
-	public User(String username, @NotBlank @Size(max = 50) @Email String email,
-			@NotBlank @Size(max = 120) String password, String firstName, String lastName, Date insertDate,
-			Date lastUpdateDate, String mobileNumber, String address) {
+	@DBRef
+	private Set<Review> reviews = new HashSet<>();
+
+	public User(@NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 120) String password, String firstName,
+			String lastName, Date insertDate, Date lastUpdateDate, Date birthday, String mobileNumber, String nic,
+			String address) {
+		super();
 		this.username = username;
-		this.email = email;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.insertDate = insertDate;
 		this.lastUpdateDate = lastUpdateDate;
+		this.birthday = birthday;
 		this.mobileNumber = mobileNumber;
+		this.nic = nic;
 		this.address = address;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
@@ -74,14 +73,6 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getPassword() {
@@ -146,6 +137,30 @@ public class User {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getNic() {
+		return nic;
+	}
+
+	public void setNic(String nic) {
+		this.nic = nic;
+	}
+
+	public Set<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(Set<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 }

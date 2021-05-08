@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,9 +42,11 @@ import lk.agrohub.market.model.Category;
 import lk.agrohub.market.model.ERole;
 import lk.agrohub.market.model.ImageModel;
 import lk.agrohub.market.model.Product;
+import lk.agrohub.market.model.Review;
 import lk.agrohub.market.model.Role;
 import lk.agrohub.market.model.User;
 import lk.agrohub.market.repository.ImageRepository;
+import lk.agrohub.market.repository.ReviewRepository;
 import lk.agrohub.market.repository.RoleRepository;
 import lk.agrohub.market.repository.UserRepository;
 import lk.agrohub.market.security.jwt.JwtUtils;
@@ -69,6 +72,9 @@ public class AuthController {
 	RoleRepository roleRepository;
 
 	@Autowired
+	ReviewRepository reviewRepository;
+
+	@Autowired
 	ImageRepository imageRepository;
 
 	@Autowired
@@ -90,8 +96,7 @@ public class AuthController {
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
-		return ResponseEntity.ok(
-				new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
+		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), roles));
 	}
 
 	@PostMapping("/signup")
@@ -100,14 +105,11 @@ public class AuthController {
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
 		}
 
-		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
-		}
-
 		// Create new user's account
-		User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
-				encoder.encode(signUpRequest.getPassword()), signUpRequest.getFirstName(), signUpRequest.getLastName(),
-				new Date(), new Date(), signUpRequest.getMobileNumber(), signUpRequest.getAddress());
+		User user = new User(signUpRequest.getUsername(), encoder.encode(signUpRequest.getPassword()),
+				signUpRequest.getFirstName(), signUpRequest.getLastName(), new Date(), new Date(),
+				signUpRequest.getBirthday(), signUpRequest.getMobileNumber(), signUpRequest.getNic(),
+				signUpRequest.getAddress());
 
 		Set<String> strRoles = signUpRequest.getRoles();
 		Set<Role> roles = new HashSet<>();
@@ -210,25 +212,24 @@ public class AuthController {
 
 	@PutMapping("/update")
 	public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateRequest updateRequest) {
-		if (userRepository.existsByEmail(updateRequest.getEmail())) {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
-		}
-
 		Optional<User> optionalUser = userRepository.findByUsername(updateRequest.getUsername());
 
 		if (optionalUser.isPresent()) {
 			User oldUser = optionalUser.get();
-			if (updateRequest.getEmail() != null) {
-				oldUser.setEmail(updateRequest.getEmail());
-			}
 			if (updateRequest.getFirstName() != null) {
 				oldUser.setFirstName(updateRequest.getFirstName());
 			}
 			if (updateRequest.getLastName() != null) {
 				oldUser.setLastName(updateRequest.getLastName());
 			}
+			if (updateRequest.getBirthday() != null) {
+				oldUser.setBirthday(updateRequest.getBirthday());
+			}
 			if (updateRequest.getMobileNumber() != null) {
 				oldUser.setMobileNumber(updateRequest.getMobileNumber());
+			}
+			if (updateRequest.getNic() != null) {
+				oldUser.setNic(updateRequest.getNic());
 			}
 			if (updateRequest.getAddress() != null) {
 				oldUser.setAddress(updateRequest.getAddress());
@@ -246,6 +247,9 @@ public class AuthController {
 				Role sellerRole = roleRepository.findByName(ERole.ROLE_SELLER)
 						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 				roles.add(sellerRole);
+				Role transporterRole = roleRepository.findByName(ERole.ROLE_TRANSPORTER)
+						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+				roles.add(transporterRole);
 			} else {
 				strRoles.forEach(role -> {
 					switch (role) {
@@ -267,6 +271,12 @@ public class AuthController {
 						roles.add(sellerRole);
 
 						break;
+					case "transporter":
+						Role transporterRole = roleRepository.findByName(ERole.ROLE_TRANSPORTER)
+								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+						roles.add(transporterRole);
+
+						break;
 					default:
 						Role buyerRoleNew = roleRepository.findByName(ERole.ROLE_BUYER)
 								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -274,6 +284,9 @@ public class AuthController {
 						Role sellerRoleNew = roleRepository.findByName(ERole.ROLE_SELLER)
 								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 						roles.add(sellerRoleNew);
+						Role transporterRoleNew = roleRepository.findByName(ERole.ROLE_TRANSPORTER)
+								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+						roles.add(transporterRoleNew);
 					}
 				});
 			}
@@ -299,6 +312,38 @@ public class AuthController {
 		userRepository.delete(user.get());
 
 		return "Deleted user : " + user.get().getUsername();
+	}
+
+	@PostMapping("/review/{userId}")
+	@PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN')")
+	public ResponseEntity<Review> reviewUser(@PathVariable long userId, @RequestBody Review review) throws Exception {
+		ResponseEntity<Review> result;
+		try {
+			String currentUserName;
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			if (!(authentication instanceof AnonymousAuthenticationToken)) {
+				currentUserName = authentication.getName();
+				Optional<User> reviewer = userRepository.findByUsername(currentUserName);
+				review.setReviewerId(reviewer.get().getId());
+				review.setInsertDate(new Date());
+				Review addedReview = reviewRepository.save(review);
+				User reviewedUser = userRepository.findById(userId).get();
+				Set<Review> reviews = reviewedUser.getReviews();
+				if (reviews == null) {
+					reviews = new HashSet<>();
+				}
+				reviews.add(addedReview);
+				reviewedUser.setReviews(reviews);
+				userRepository.save(reviewedUser);
+				result = new ResponseEntity<>(review, HttpStatus.OK);
+			} else {
+				result = new ResponseEntity<>(review, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+
+		} catch (Exception e) {
+			result = new ResponseEntity<>(review, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return result;
 	}
 
 	@PostMapping("/images/add")

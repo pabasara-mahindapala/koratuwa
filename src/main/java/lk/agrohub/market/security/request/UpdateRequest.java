@@ -10,15 +10,14 @@ public class UpdateRequest {
 	@Size(min = 3, max = 20)
 	private String username;
 
-	@NotBlank
-	@Size(max = 50)
-	@Email
-	private String email;
-
 	private String firstName;
 	private String lastName;
 	private String mobileNumber;
 	private String address;
+	private Date insertDate;
+	private Date lastUpdateDate;
+	private Date birthday;
+	private String nic;
 
 	private Set<String> roles;
 
@@ -30,14 +29,6 @@ public class UpdateRequest {
 		this.username = username;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
 	public Set<String> getRoles() {
 		return this.roles;
 	}
@@ -76,6 +67,42 @@ public class UpdateRequest {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public Date getInsertDate() {
+		return insertDate;
+	}
+
+	public void setInsertDate(Date insertDate) {
+		this.insertDate = insertDate;
+	}
+
+	public Date getLastUpdateDate() {
+		return lastUpdateDate;
+	}
+
+	public void setLastUpdateDate(Date lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getNic() {
+		return nic;
+	}
+
+	public void setNic(String nic) {
+		this.nic = nic;
+	}
+
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
 	}
 
 }

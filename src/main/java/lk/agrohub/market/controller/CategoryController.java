@@ -4,6 +4,8 @@ import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import lk.agrohub.market.model.Category;
@@ -23,9 +25,10 @@ public class CategoryController {
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasRole('BUYER') or hasRole('SELLER') or hasRole('ADMIN')")
     public List<Category> listAllCategory() {
         try {
-            return this.categoryService.getAllCategory();
+        	return this.categoryService.getAllCategory();
         } catch (Exception e) {
             // Log error
             return new ArrayList<Category>();
