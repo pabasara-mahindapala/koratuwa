@@ -9,15 +9,15 @@
 		<version>2.1.16.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.pachoriya.ecom</groupId>
-	<artifactId>app1</artifactId>
+	<groupId>lk.agrohub.market</groupId>
+	<artifactId>agrohub-market</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>app1</name>
-	<description>Demo project for Spring Boot</description>
+	<name>agrohub-market</name>
+	<description>Agrohub Market</description>
 
 	<properties>
 		<java.version>1.8</java.version>
-		<start-class>org.fyp.marketplace.App1Application</start-class>
+		<start-class>lk.agrohub.market.App1Application</start-class>
 	</properties>
 
 
