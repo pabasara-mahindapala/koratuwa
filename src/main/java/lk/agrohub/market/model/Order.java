@@ -14,24 +14,23 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "order")
 public class Order {
 	@Transient
-    public static final String SEQUENCE_NAME = "orders_sequence";
+	public static final String SEQUENCE_NAME = "orders_sequence";
 
-    @Id
-    private long id;
+	@Id
+	private long id;
 
 	private Date insertDate = new Date();
 	private Boolean isActive;
-	private long stockId;
+	private long productId;
 	private long producerId;
 	private long customerId;
 	private Integer quanity;
 
-	public Order(Date insertDate, Boolean isActive, long stockId, long producerId,
-			long customerId, Integer quanity) {
+	public Order(Date insertDate, Boolean isActive, long productId, long producerId, long customerId, Integer quanity) {
 		super();
 		this.insertDate = insertDate;
 		this.isActive = isActive;
-		this.stockId = stockId;
+		this.productId = productId;
 		this.producerId = producerId;
 		this.customerId = customerId;
 		this.quanity = quanity;
@@ -65,12 +64,12 @@ public class Order {
 		this.id = id;
 	}
 
-	public long getStockId() {
-		return stockId;
+	public long getProductId() {
+		return productId;
 	}
 
-	public void setStockId(long stockId) {
-		this.stockId = stockId;
+	public void setProductId(long productId) {
+		this.productId = productId;
 	}
 
 	public long getProducerId() {

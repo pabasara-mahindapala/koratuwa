@@ -4,28 +4,18 @@ import java.util.Date;
 import java.util.List;
 
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lk.agrohub.market.model.Order;
 import lk.agrohub.market.repository.OrderRepository;
+import lk.agrohub.market.repository.ProductRepository;
 
 @Service
 public class OrderService {
-	final OrderRepository orderRepository;
-	final StockService stockService;
-	private String[] paymentType;
 
-	/**
-	 * 
-	 * @param orderRepository
-	 * @param stockService
-	 * @param accountService
-	 */
-	public OrderService(OrderRepository orderRepository, StockService stockService) {
-		this.orderRepository = orderRepository;
-		this.stockService = stockService;
-		this.setPaymentType(new String[] { "cash", "online", "card", "coupon", "other" });
-	}
+	@Autowired
+	OrderRepository orderRepository;
 
 	/**
 	 * List all orders
@@ -36,8 +26,8 @@ public class OrderService {
 		return orderRepository.findAll();
 	}
 
-	public List<Order> orderSearchByStockId(long stockId) {
-		return orderRepository.findByStockId(stockId);
+	public List<Order> orderSearchByProductId(long productId) {
+		return orderRepository.findByProductId(productId);
 	}
 
 	public Order createOrder(Order order) throws Exception {
@@ -60,13 +50,5 @@ public class OrderService {
 		}
 
 		return isValid;
-	}
-
-	public String[] getPaymentType() {
-		return paymentType;
-	}
-
-	public void setPaymentType(String[] paymentType) {
-		this.paymentType = paymentType;
 	}
 }

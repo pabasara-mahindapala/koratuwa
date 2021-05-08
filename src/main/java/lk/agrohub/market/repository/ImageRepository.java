@@ -9,6 +9,6 @@ import lk.agrohub.market.model.ImageModel;
 
 public interface ImageRepository extends MongoRepository<ImageModel, Long> {
 	ImageModel findByUserId(long userId);
-	
-	List<ImageModel> findByStockId(long stockId);
+
+	List<ImageModel> findByProductId(long productId);
 }

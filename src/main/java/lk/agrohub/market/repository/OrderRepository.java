@@ -16,6 +16,6 @@ import lk.agrohub.market.model.Order;
  */
 public interface OrderRepository extends MongoRepository<Order, Long> {
 
-	List<Order> findByStockId(long stockId);
+	List<Order> findByProductId(long productId);
 
 }

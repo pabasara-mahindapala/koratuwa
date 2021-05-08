@@ -1,12 +1,10 @@
 package lk.agrohub.market.model;
 
-import org.bson.types.ObjectId;
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
-import java.util.Date;
 
 @Document(collection = "product")
 public class Product {

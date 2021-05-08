@@ -14,17 +14,17 @@ public class ImageModel {
 	private long id;
 	private int order;
 	private Long userId;
-	private Long stockId;
+	private Long productId;
 	private String name;
 	private String type;
 	private Date insertDate;
 	private String url;
 
-	public ImageModel(int order, Long userId, Long stockId, String name, String type, Date insertDate, String url) {
+	public ImageModel(int order, Long userId, Long productId, String name, String type, Date insertDate, String url) {
 		super();
 		this.order = order;
 		this.userId = userId;
-		this.stockId = stockId;
+		this.productId = productId;
 		this.name = name;
 		this.type = type;
 		this.insertDate = insertDate;
@@ -47,12 +47,12 @@ public class ImageModel {
 		this.userId = userId;
 	}
 
-	public Long getStockId() {
-		return stockId;
+	public Long getProductId() {
+		return productId;
 	}
 
-	public void setStockId(Long stockId) {
-		this.stockId = stockId;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	public String getName() {

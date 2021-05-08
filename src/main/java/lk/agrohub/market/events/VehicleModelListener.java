@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventLis
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.stereotype.Component;
 
-import lk.agrohub.market.model.Stock;
 import lk.agrohub.market.model.Vehicle;
 import lk.agrohub.market.service.SequenceGeneratorService;
 
