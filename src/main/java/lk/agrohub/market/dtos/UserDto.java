@@ -1,10 +1,12 @@
 package lk.agrohub.market.dtos;
 
+import java.io.Serializable;
+
 import lk.agrohub.market.model.User;
 
-public class UserDto {
+public class UserDto implements Serializable {
 	private User user;
-	
+
 	private String imagePath;
 
 	public UserDto(User user, String imagePath) {
@@ -29,6 +31,4 @@ public class UserDto {
 		this.imagePath = imagePath;
 	}
 
-	
-	
 }

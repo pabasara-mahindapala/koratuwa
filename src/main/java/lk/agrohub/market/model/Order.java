@@ -3,6 +3,7 @@
  */
 package lk.agrohub.market.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.bson.types.ObjectId;
@@ -12,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "order")
-public class Order {
+public class Order implements Serializable {
 	@Transient
 	public static final String SEQUENCE_NAME = "orders_sequence";
 

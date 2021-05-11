@@ -11,8 +11,9 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.*;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,12 +37,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import lk.agrohub.market.dtos.ProductDto;
 import lk.agrohub.market.dtos.UserDto;
-import lk.agrohub.market.model.Category;
 import lk.agrohub.market.model.ERole;
 import lk.agrohub.market.model.ImageModel;
-import lk.agrohub.market.model.Product;
 import lk.agrohub.market.model.Review;
 import lk.agrohub.market.model.Role;
 import lk.agrohub.market.model.User;
@@ -99,6 +97,7 @@ public class AuthController {
 		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), roles));
 	}
 
+	@CacheEvict(value = "users", allEntries = true)
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -171,6 +170,7 @@ public class AuthController {
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
 
+	@Cacheable(value = "users")
 	@GetMapping("/all")
 	public List<UserDto> listAllUsers() {
 		try {
@@ -188,6 +188,7 @@ public class AuthController {
 		}
 	}
 
+	@Cacheable(value = "user", key = "#userId")
 	@GetMapping("/{userId}")
 	public UserDto getUser(@PathVariable long userId) {
 
@@ -210,6 +211,7 @@ public class AuthController {
 		return ResponseEntity.ok(new MessageResponse("Logged out successfuly"));
 	}
 
+	@CacheEvict(value = "users", allEntries = true)
 	@PutMapping("/update")
 	public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateRequest updateRequest) {
 		Optional<User> optionalUser = userRepository.findByUsername(updateRequest.getUsername());
@@ -300,6 +302,7 @@ public class AuthController {
 		}
 	}
 
+	@Caching(evict = { @CacheEvict(value = "users", allEntries = true), @CacheEvict(value = "user", key = "#userId") })
 	@DeleteMapping("/delete/{userId}")
 	public String deleteUser(@PathVariable long userId) {
 		Optional<User> user = userRepository.findById(userId);

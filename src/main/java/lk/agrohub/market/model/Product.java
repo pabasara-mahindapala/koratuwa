@@ -1,5 +1,6 @@
 package lk.agrohub.market.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -7,7 +8,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "product")
-public class Product {
+public class Product implements Serializable {
 	@Transient
     public static final String SEQUENCE_NAME = "products_sequence";
 

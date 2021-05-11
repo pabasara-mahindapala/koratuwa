@@ -1,5 +1,6 @@
 package lk.agrohub.market.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "users")
-public class User {
+public class User implements Serializable {
 	@Transient
 	public static final String SEQUENCE_NAME = "users_sequence";
 

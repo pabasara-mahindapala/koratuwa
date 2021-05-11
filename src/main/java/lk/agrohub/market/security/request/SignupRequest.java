@@ -1,11 +1,12 @@
 package lk.agrohub.market.security.request;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
 import javax.validation.constraints.*;
 
-public class SignupRequest {
+public class SignupRequest implements Serializable {
 	@NotBlank
 	@Size(min = 3, max = 20)
 	private String username;
@@ -116,6 +117,12 @@ public class SignupRequest {
 
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
 
 }

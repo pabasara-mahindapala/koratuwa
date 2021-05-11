@@ -6,10 +6,11 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Document(collection = "subCategory")
-public class SubCategory {
+public class SubCategory implements Serializable {
 	@Transient
     public static final String SEQUENCE_NAME = "subcategories_sequence";
 

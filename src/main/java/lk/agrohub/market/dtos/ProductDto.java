@@ -1,10 +1,11 @@
 package lk.agrohub.market.dtos;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import lk.agrohub.market.model.Product;
 
-public class ProductDto {
+public class ProductDto implements Serializable {
 	private Product product;
 
 	private String categoryName;
